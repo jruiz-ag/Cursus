@@ -14,30 +14,28 @@ NAME	= rush-02
 CC	= cc
 CFLAGS	= -Wall -Wextra -Werror
 SRC	= todos_los.c 
-OBJECTS	= $(SRC:.c=.o)
+OBJ	= $(SRC:.c=.o)
 
-all: main
+# La regla all siempre debe ser la primera
+all: $(NAME)
 
-main:
-	$(CC) $(CFLAGS) *.c -o $(NAME)
-
-# NAME
-$(NAME): $(OBJECTS)
+# Compilación del ejecutable
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-# CC
+# Regla implícita para objetos
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# clean
+# Limpieza de objetos
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJ)
 
-# fclean
+# Limpieza completa
 fclean: clean
 	rm -f $(NAME)
 
-# Bonus: regla re (recompila todo desde cero)
-#re: fclean $(NAME)
+# Recompila todo desde cero
+re: fclean all
 
-#//.PHONY: clean fclean re
+.PHONY: clean fclean re
