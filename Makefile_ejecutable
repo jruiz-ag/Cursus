@@ -13,7 +13,7 @@
 NAME	= rush-02
 CC	= cc
 CFLAGS	= -Wall -Wextra -Werror
-SRC	= main.c errors.c atoi.c 
+SRC	= todos_los.c 
 OBJECTS	= $(SRC:.c=.o)
 
 all: main
