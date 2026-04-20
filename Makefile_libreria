@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/03/21 19:13:49 by jruiz-ag          #+#    #+#              #
+#    Updated: 2026/03/21 21:44:09 by jruiz-ag         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	= libft.a
+CC = CC
+LIBC = ar rcs
+CFLAGS	= -Wall -Wextra -Werror
+SRC	= todos_los.c 
+OBJECTS	= $(SRC:.c=.o)
+
+# La regla all siempre debe ser la primera
+all: $(NAME)
+
+# Creación de la librería estática
+$(NAME): $(OBJECTS)
+	$(LIBC) $(OBJ) -o $(NAME)
+
+# Compilación de objetos
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Limpieza de objetos
+clean:
+	rm -f $(OBJECTS)
+
+# Limpieza completa
+fclean: clean
+	rm -f $(NAME)
+
+# Recompila todo desde cero
+re: fclean $(NAME)
+
+.PHONY: clean fclean re
