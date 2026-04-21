@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:50:29 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:39:54 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/21 16:10:27 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:41:59 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
+	size_t	res;
 	size_t	cont;
 
 	cont = 0;
-	while (cont < n)
+	res = ft_strlen(src);
+	if (size == 0)
+		return (res);
+	while (cont < (size - 1) && src[cont])
 	{
-		((unsigned char *) dest)[cont] = ((unsigned char *) src)[cont];
+		dst[cont] = src[cont];
 		++cont;
 	}
-	return (dest);
+	dst[cont] = '\0';
+	return (res);
 }
 /*
-#include <string.h>
 #include <stdio.h>
+#include <bsd/string.h>
 int main()
 {
-	char dst1[10] = "Hola";
-	char src1[10] = "Vacio?";
-	ft_memcpy(dst1, src1, 3);
-	printf("%d %d %d %d %d\n", dst1[0], dst1[1], dst1[2], dst1[3], dst1[4]);
-
-	char dst2[10] = "Hola";
-	char src2[10] = "Vacio?";
-	memcpy(dst2, src2, 3);
-	printf("%d %d %d %d %d\n", dst2[0], dst2[1], dst2[2], dst2[3], dst2[4]);
+	char texto[] = "Hola";
+	
+	char tex1[] = "coso";
+	printf("%zu ", ft_strlcpy(tex1, texto, 5));
+	printf("%s\n", tex1);
+	
+	char tex2[] = "coso";
+	printf("%zu ", strlcpy(tex2, texto, 5));
+	printf("%s", tex2);
 }
 */

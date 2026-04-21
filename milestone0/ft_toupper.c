@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:22:01 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:39:14 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/21 17:52:12 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:45:22 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+int	ft_toupper(int c)
 {
-	if (32 <= c && c <= 126)
-		return (1);
-	return (0);
+	if (97 <= c && c <= 122)
+		return (c - 32);
+	return (c);
 }
 /*
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 int main()
 {
-	printf("%d ", ft_isprint('a'));
-	printf("%d ", isprint('a'));
-
-	printf("%d ", ft_isprint(0xff));
-	printf("%d ", isprint(0xff));
+	printf("%c ", ft_toupper('c'));
+	printf("%c\n", toupper('c'));
 	
-	printf("%d ", ft_isprint(0x0c));
-	printf("%d", isprint(0x0c));
+	printf("%c ", ft_toupper('Z'));
+	printf("%c\n", toupper('Z'));
+
+	printf("%c ", ft_toupper('?'));
+	printf("%c", toupper('?'));
+
 }
 */

@@ -6,7 +6,7 @@
 #    By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/21 19:13:49 by jruiz-ag          #+#    #+#              #
-#    Updated: 2026/04/20 19:16:55 by jruiz-ag         ###   ########.fr        #
+#    Updated: 2026/04/21 16:22:27 by jruiz-ag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,3 +45,6 @@ fclean: clean
 re: fclean $(NAME)
 
 .PHONY: clean fclean re
+
+coso:
+	rm a.out libft.h.gch

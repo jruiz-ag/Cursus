@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:22:46 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:42:41 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/21 17:58:18 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:43:40 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t	cont;
+	int		cont;
 
-	cont = 0;
-	while (s[cont])
-		++cont;
-	return (cont);
+	cont = ft_strlen(s);
+	while (cont >= 0)
+	{
+		if (s[cont] == c)
+			return ((char *)&s[cont]);
+		--cont;
+	}
+	return (NULL);
 }
 /*
 #include <stdio.h>
 #include <string.h>
 int main()
 {
-	char s[11] = "Poco menos";
+	printf("%s\n", ft_strrchr("Mi casa es alta", 'a'));
+	printf("%s\n", strrchr("Mi casa es alta", 'a'));
 
-	printf("%zu ", ft_strlen(s));
-	printf("%zu ", strlen(s));
+	printf("%s\n", ft_strrchr("Mi casa es alta", 's'));
+	printf("%s\n", strrchr("Mi casa es alta", 's'));
 	
-	printf("%zu ", ft_strlen("Hola que pasa"));
-	printf("%zu ", strlen("Hola que pasa"));
+	printf("%s\n", ft_strrchr("Mi casa es alta", 'f'));
+	printf("%s", strrchr("Mi casa es alta", 'f'));
 }
 */
