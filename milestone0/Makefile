@@ -45,6 +45,3 @@ fclean: clean
 re: fclean $(NAME)
 
 .PHONY: clean fclean re
-
-coso:
-	rm a.out libft.h.gch
