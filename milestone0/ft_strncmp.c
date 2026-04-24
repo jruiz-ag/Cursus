@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:29:31 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:43:02 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:04:54 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	cont = 0;
 	while ((cont < n) && s2[cont] && s1[cont])
 	{
-		if (s1[cont] != s2[cont])
-			return (s1[cont] - s2[cont]);
+		if ((unsigned char)s1[cont] != (unsigned char)s2[cont])
+			return ((unsigned char)s1[cont] - (unsigned char)s2[cont]);
 		++cont;
 	}
 	if (cont < n)
-		return (s1[cont] - s2[cont]);
+		return ((unsigned char)s1[cont] - (unsigned char)s2[cont]);
 	return (0);
 }
 /*
@@ -43,5 +43,8 @@ int main()
 
 	printf("%d ", ft_strncmp("ABC", "ABD", 3));
 	printf("%d ", strncmp("ABC", "ABD", 3));
+
+	printf("%d ", ft_strncmp("test\200", "test\0", 6));
+	printf("%d ", strncmp("test\200", "test\0", 6));
 }
 */

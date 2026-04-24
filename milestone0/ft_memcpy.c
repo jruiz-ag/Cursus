@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:50:29 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:39:54 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:47:21 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	cont;
 
+	if (!dest && !src)
+		return (NULL);
 	cont = 0;
 	while (cont < n)
 	{

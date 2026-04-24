@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 17:58:18 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:43:40 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:13:44 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 	cont = ft_strlen(s);
 	while (cont >= 0)
 	{
-		if (s[cont] == c)
+		if ((unsigned char)s[cont] == (unsigned char)c)
 			return ((char *)&s[cont]);
 		--cont;
 	}

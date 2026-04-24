@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:24:27 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 18:54:07 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:32:45 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,17 @@
 
 char	*ft_strdup(const char *s)
 {
-	size_t	idx;
+	size_t	size;
 	char	*sol;
 
-	idx = 0;
+	size = ft_strlen(s);
 	if (s == NULL)
 		return (NULL);
-	sol = malloc(ft_strlen(s) + 1);
+	sol = malloc(size + 1);
 	if (sol == NULL)
 		return (NULL);
-	while (s[idx])
-	{
-		sol[idx] = s[idx];
-		++idx;
-	}
-	sol[idx] = '\0';
+	ft_memmove(sol, s, size);
+	sol[size] = '\0';
 	return (sol);
 }
 /*
@@ -47,5 +43,7 @@ int main()
 
 	char *dst_2 = strdup(src);
 	printf("%p %s\n", dst_2, dst_2);
+
+	ft_strdup(NULL);
 }
 */

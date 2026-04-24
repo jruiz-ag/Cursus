@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 19:12:39 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 19:38:38 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/24 17:26:26 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sol = malloc(len + 1);
 	if (sol == NULL)
 		return (NULL);
-	ft_memcpy(sol, &s[start], len);
+	ft_memmove(sol, &s[start], len);
 	sol[len] = '\0';
 	return (sol);
 }
