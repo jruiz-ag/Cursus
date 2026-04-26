@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:24:27 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/24 20:32:45 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:59:17 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s)
 	size = ft_strlen(s);
 	if (s == NULL)
 		return (NULL);
-	sol = malloc(size + 1);
+	sol = ft_calloc(size + 1, sizeof(char));
 	if (sol == NULL)
 		return (NULL);
 	ft_memmove(sol, s, size);

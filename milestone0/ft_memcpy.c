@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:50:29 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/24 20:47:21 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:25:09 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ int main()
 	char src2[10] = "Vacio?";
 	memcpy(dst2, src2, 3);
 	printf("%d %d %d %d %d\n", dst2[0], dst2[1], dst2[2], dst2[3], dst2[4]);
+
+	char dst3[4] = "ABCD";
+	ft_memcpy(&dst3[1], dst3, 2);
+	printf("%s", dst3);
 }
 */

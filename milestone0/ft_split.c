@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 15:26:44 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/24 19:46:47 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 21:27:12 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**free_previous(char **matrix, int index)
 	while (index >= 0)
 	{
 		free(matrix[index]);
+		--index;
 	}
 	free(matrix);
 	return (NULL);
@@ -76,7 +77,7 @@ char	**ft_split(const char *s, char c)
 	size_t	idx_words;
 
 	n_words = ft_cont_words(s, c);
-	sol = malloc((n_words + 1) * sizeof(char *));
+	sol = ft_calloc((n_words + 1), sizeof(char *));
 	if (sol == NULL)
 		return (NULL);
 	idx = 0;

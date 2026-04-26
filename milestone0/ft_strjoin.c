@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 19:31:00 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/24 17:31:31 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 21:27:03 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
 	sum_lens = len_s1 + len_s2;
-	sol = malloc(sum_lens + 1);
+	sol = ft_calloc(sum_lens + 1, sizeof(char));
 	if (sol == NULL)
 		return (NULL);
 	ft_memmove(sol, s1, len_s1);

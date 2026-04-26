@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 14:57:07 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/24 20:27:32 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:59:46 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 		return (NULL);
 	cont = 0;
 	len = ft_strlen_whitout_set(s1, set);
-	sol = malloc(len + 1);
+	sol = ft_calloc(len + 1, sizeof(char));
 	if (sol == NULL)
 		return (NULL);
 	while ((is_in_set(s1[cont], set)) && s1[cont])
