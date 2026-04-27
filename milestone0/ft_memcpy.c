@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:50:29 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/26 18:25:09 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:47:41 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int main()
 	char dst3[4] = "ABCD";
 	ft_memcpy(&dst3[1], dst3, 2);
 	printf("%s", dst3);
+
+	ft_memcpy((void *)0, (void *)NULL, 3);
 }
 */

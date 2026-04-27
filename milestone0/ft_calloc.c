@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 17:50:12 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/26 18:01:16 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:49:28 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	if (nmemb == 0 || size == 0)
 		max = 0;
-	else if (nmemb > ((size_t)-1 / size))
+	else if (nmemb > (SIZE_MAX / size))
 		return (NULL);
 	else
 		max = nmemb * size;

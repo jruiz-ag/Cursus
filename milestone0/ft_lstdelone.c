@@ -1,0 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/27 18:54:32 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 19:01:54 by jruiz-ag         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	del(lst->content);
+	free(lst);
+}
+
+/*
+void del (void *p)
+{
+	free(p);
+}
+
+int main()
+{
+	t_list	*t1 = ft_lstnew(ft_strdup("Various things"));
+	t_list	*t2 = ft_lstnew(ft_strdup("Two things"));
+	t1 -> next = t2;
+	ft_lstdelone(t1, del);
+}
+*/
