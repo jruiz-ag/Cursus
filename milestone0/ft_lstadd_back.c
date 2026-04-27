@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:09:44 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/27 18:15:22 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 19:53:41 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
 
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
 	last = ft_lstlast(*lst);
 	last->next = new;
 }

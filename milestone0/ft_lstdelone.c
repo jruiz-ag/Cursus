@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:54:32 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/27 19:01:54 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 19:59:26 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
+	if (!lst || !del)
+		return ;
 	del(lst->content);
 	free(lst);
 }

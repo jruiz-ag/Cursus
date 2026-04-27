@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:04:41 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/27 18:08:56 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 20:04:21 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	while ((lst -> next) != NULL)
-	{
+	if (!lst)
+		return (NULL);
+	while (lst -> next)
 		lst = lst -> next;
-	}
 	return (lst);
 }
 

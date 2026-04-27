@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:59:43 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/26 21:07:52 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/27 19:58:23 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
+	if (!lst || !new)
+		return ;
 	new->next = *lst;
 	*lst = new;
 }

@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/26 21:18:11 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/27 20:01:11 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/27 19:40:46 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 20:01:42 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	cont;
+	t_list	*actual_lst;
+	t_list	*next_lst;
 
-	if (!lst)
-		return (0);
-	cont = 0;
-	while (lst)
+	if (!lst || !*lst || !del)
+		return ;
+	actual_lst = *lst;
+	while (actual_lst)
 	{
-		++cont;
-		lst = lst->next;
+		next_lst = actual_lst->next;
+		ft_lstdelone(actual_lst, del);
+		actual_lst = next_lst;
 	}
-	return (cont);
+	*lst = NULL;
+}
+/*
+void del (void *p)
+{
+	free(p);
 }
 
-/*
-#include <stdio.h>
 int main()
 {
-	t_list *n1 = ft_lstnew("Initial Node");
-	t_list *n2 = ft_lstnew("Second Node");
-	n1->next = n2;
-	t_list *n3 = ft_lstnew("New Node - Insert");
-	printf("%d\n", ft_lstsize(n1));
-	ft_lstadd_front(&n1, n3);
-	printf("%d", ft_lstsize(n1));
+	t_list	*t1 = ft_lstnew(ft_strdup("Various things"));
+	t_list	*t2 = ft_lstnew(ft_strdup("Two things"));
+	t1 -> next = t2;
+	ft_lstclear(&t1, del);
 }
 */
