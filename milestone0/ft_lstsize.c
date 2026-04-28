@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 21:18:11 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/27 20:01:11 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/28 17:01:57 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	ft_lstsize(t_list *lst)
 {
 	int	cont;
 
-	if (!lst)
-		return (0);
 	cont = 0;
 	while (lst)
 	{
