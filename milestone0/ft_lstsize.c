@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:42:36 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 16:50:15 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/26 21:18:11 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/28 17:01:57 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_lstsize(t_list *lst)
 {
-	ft_memset(s, '\0', n);
+	int	cont;
+
+	cont = 0;
+	while (lst)
+	{
+		++cont;
+		lst = lst->next;
+	}
+	return (cont);
 }
+
 /*
-#include <string.h>
 #include <stdio.h>
 int main()
 {
-	char s[10] = "Hola";
-	ft_bzero(s, 3);
-	printf("%d %d %d %d %d\n", s[0], s[1], s[2], s[3], s[4]);
-
-	char r[10] = "Hola";
-	bzero(r, 3);
-	printf("%d %d %d %d %d", r[0], r[1], r[2], r[3], r[4]);
+	t_list *n1 = ft_lstnew("Initial Node");
+	t_list *n2 = ft_lstnew("Second Node");
+	n1->next = n2;
+	t_list *n3 = ft_lstnew("New Node - Insert");
+	printf("%d\n", ft_lstsize(n1));
+	ft_lstadd_front(&n1, n3);
+	printf("%d", ft_lstsize(n1));
 }
 */

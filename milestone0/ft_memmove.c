@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:05:35 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/21 18:40:17 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/04/26 19:43:25 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,19 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	cont;
 	size_t	idx;
 
 	if (!dest && !src)
 		return (0);
 	if (dest < src)
-	{
-		cont = 0;
-		while (cont < n)
-		{
-			((unsigned char *) dest)[cont] = ((unsigned char *) src)[cont];
-			++cont;
-		}
-	}
+		ft_memcpy(dest, src, n);
 	else
 	{
-		cont = n;
-		while (cont > 0)
+		idx = n;
+		while (idx > 0)
 		{
-			idx = cont - 1;
-			((unsigned char *) dest)[idx] = ((unsigned char *) src)[idx];
-			--cont;
+			((unsigned char *)dest)[idx - 1] = ((unsigned char *)src)[idx - 1];
+			--idx;
 		}
 	}
 	return (dest);
@@ -54,5 +45,9 @@ int main()
 	char src2[10] = "Vacio?";
 	memmove(dst2, src2, 3);
 	printf("%d %d %d %d %d\n", dst2[0], dst2[1], dst2[2], dst2[3], dst2[4]);
+
+	char dst3[4] = "ABCD";
+	ft_memmove(&dst3[1], dst3, 2);
+	printf("%s", dst3);
 }
 */

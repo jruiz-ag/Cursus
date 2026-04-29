@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:42:36 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 16:50:15 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/27 18:54:32 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 19:59:26 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	ft_memset(s, '\0', n);
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }
+
 /*
-#include <string.h>
-#include <stdio.h>
+void del (void *p)
+{
+	free(p);
+}
+
 int main()
 {
-	char s[10] = "Hola";
-	ft_bzero(s, 3);
-	printf("%d %d %d %d %d\n", s[0], s[1], s[2], s[3], s[4]);
-
-	char r[10] = "Hola";
-	bzero(r, 3);
-	printf("%d %d %d %d %d", r[0], r[1], r[2], r[3], r[4]);
+	t_list	*t1 = ft_lstnew(ft_strdup("Various things"));
+	t_list	*t2 = ft_lstnew(ft_strdup("Two things"));
+	t1 -> next = t2;
+	ft_lstdelone(t1, del);
 }
 */

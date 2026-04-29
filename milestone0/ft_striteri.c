@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:42:36 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 16:50:15 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/26 18:03:34 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 18:26:10 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	ft_memset(s, '\0', n);
+	size_t	len;
+	size_t	cont;
+
+	len = ft_strlen(s);
+	cont = 0;
+	while (cont < len)
+	{
+		f(cont, &s[cont]);
+		++cont;
+	}
 }
+
 /*
-#include <string.h>
 #include <stdio.h>
+void func(unsigned int idx, char *str)
+{
+	*str = (*str + idx);
+}
+
 int main()
 {
-	char s[10] = "Hola";
-	ft_bzero(s, 3);
-	printf("%d %d %d %d %d\n", s[0], s[1], s[2], s[3], s[4]);
-
-	char r[10] = "Hola";
-	bzero(r, 3);
-	printf("%d %d %d %d %d", r[0], r[1], r[2], r[3], r[4]);
+	char *prueba = "Hello world";
+	ft_striteri(prueba, func);
+	printf("%s", prueba);
 }
 */

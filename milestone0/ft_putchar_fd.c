@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 18:42:36 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/04/23 16:50:15 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/04/26 18:29:22 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 18:48:51 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_putchar_fd(char c, int fd)
 {
-	ft_memset(s, '\0', n);
+	write(fd, &c, 1);
 }
 /*
-#include <string.h>
-#include <stdio.h>
+#include <fcntl.h>
 int main()
 {
-	char s[10] = "Hola";
-	ft_bzero(s, 3);
-	printf("%d %d %d %d %d\n", s[0], s[1], s[2], s[3], s[4]);
+	ft_putchar_fd('a', 0);
 
-	char r[10] = "Hola";
-	bzero(r, 3);
-	printf("%d %d %d %d %d", r[0], r[1], r[2], r[3], r[4]);
+	int fd = open("eval.md", O_CREAT|O_TRUNC|O_WRONLY, 0666);
+	ft_putchar_fd('c', fd);
+	close(fd);
 }
 */
