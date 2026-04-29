@@ -51,12 +51,10 @@ static int	find_new_limit(const char *s, char c, int *idx)
 {
 	char	*aux;
 	int		cont;
-	int		found;
 	int		init_substr;
 
 	if (*idx != 0)
 		*idx += 1;
-	found = 0;
 	cont = 0;
 	aux = (char *)&(s[*idx]);
 	while (aux[cont] && aux[cont] == c)
