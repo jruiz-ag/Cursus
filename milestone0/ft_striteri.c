@@ -17,6 +17,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	size_t	len;
 	size_t	cont;
 
+	if (!s || !f)
+		return ;
 	len = ft_strlen(s);
 	cont = 0;
 	while (cont < len)
@@ -35,7 +37,7 @@ void func(unsigned int idx, char *str)
 
 int main()
 {
-	char *prueba = "Hello world";
+	char prueba[] = "Hello world";
 	ft_striteri(prueba, func);
 	printf("%s", prueba);
 }

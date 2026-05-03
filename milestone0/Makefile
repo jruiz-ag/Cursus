@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/21 19:13:49 by jruiz-ag          #+#    #+#              #
-#    Updated: 2026/04/28 16:10:37 by jruiz-ag         ###   ########.fr        #
+#    Updated: 2026/05/03 15:05:39 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,6 @@ fclean: clean
 	rm -f $(NAME)
 
 # Recompile all from the beggining
-re: fclean $(NAME)
+re: fclean all
 
 .PHONY: all clean fclean re
