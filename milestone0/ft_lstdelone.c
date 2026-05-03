@@ -21,16 +21,11 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 }
 
 /*
-void del (void *p)
-{
-	free(p);
-}
-
 int main()
 {
 	t_list	*t1 = ft_lstnew(ft_strdup("Various things"));
 	t_list	*t2 = ft_lstnew(ft_strdup("Two things"));
 	t1 -> next = t2;
-	ft_lstdelone(t1, del);
+	ft_lstdelone(t1, free);
 }
 */

@@ -14,6 +14,7 @@ NAME	= libft.a
 CC		= cc
 LIBC	= ar rcs
 CFLAGS	= -Wall -Wextra -Werror
+
 SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c \
 			ft_memmove.c ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
 			ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c \
@@ -21,23 +22,28 @@ SRC		= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strle
 			ft_putendl_fd.c ft_putnbr_fd.c \
 			ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 			ft_lstmap.c
-OBJECTS	= $(SRC:.c=.o)
-DEPS	= libft.h
+
+OBJ_DIR = obj
+OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 # All needs to be always the first rule
-all: $(NAME)
+all: $(OBJ_DIR) | $(NAME)
 
 # Creating the static library
 $(NAME): $(OBJECTS)
 	$(LIBC) $(NAME) $(OBJECTS)
 
+# Creating a direcgtory to hide objectss
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 # Object compilation
-%.o: %.c
+obj/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Cleaning objects
 clean:
-	rm -f $(OBJECTS)
+	rm -rf obj
 
 # Full clean
 fclean: clean
