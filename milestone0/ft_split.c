@@ -35,7 +35,7 @@ static size_t	ft_cont_words(const char *s, char c)
 	return (n_words);
 }
 
-char	**free_previous(char **matrix, int index)
+static char	**free_previous(char **matrix, int index)
 {
 	--index;
 	while (index >= 0)
