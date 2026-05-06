@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static size_t	ft_cont_words(const char *s, char c)
+static size_t	count_words(const char *s, char c)
 {
 	size_t	n_words;
 	int		flag;
@@ -25,74 +25,64 @@ static size_t	ft_cont_words(const char *s, char c)
 	{
 		if (flag == 0 && s[cont] != c)
 		{
-			n_words += 1;
+			n_words++;
 			flag = 1;
 		}
 		else if (flag == 1 && s[cont] == c)
 			flag = 0;
-		++cont;
+		cont++;
 	}
 	return (n_words);
 }
 
-static char	**free_previous(char **matrix, int index)
+static int	skip_delimiters(const char *s, char c, int pos)
 {
-	--index;
-	while (index >= 0)
-	{
-		free(matrix[index]);
-		--index;
-	}
-	free(matrix);
-	return (NULL);
+	while (s[pos] == c)
+		pos++;
+	return (pos);
 }
 
-static int	find_new_limit(const char *s, char c, int *idx)
+static int	skip_word(const char *s, char c, int pos)
 {
-	char	*aux;
-	int		cont;
-	int		init_substr;
-
-	if (*idx != 0)
-		*idx += 1;
-	cont = 0;
-	aux = (char *)&(s[*idx]);
-	while (aux[cont] && aux[cont] == c)
-		++cont;
-	init_substr = *idx;
-	*idx = *idx + cont;
-	while (aux[cont] && aux[cont] != c)
-		++cont;
-	return (init_substr + cont - 1);
+	while (s[pos] && s[pos] != c)
+		pos++;
+	return (pos);
 }
 
-char	**ft_split(const char *s, char c)
+static void	free_all(char **arr, int size)
 {
-	size_t	n_words;
-	char	**sol;
-	int		idx;
-	int		idx_limit;
-	size_t	idx_words;
+	while (size--)
+		free(arr[size]);
+	free(arr);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**result;
+	int		pos;
+	int		word_index;
+	int		start;
 
 	if (!s)
 		return (NULL);
-	n_words = ft_cont_words(s, c);
-	sol = ft_calloc((n_words + 1), sizeof(char *));
-	if (sol == NULL)
+	result = ft_calloc(count_words(s, c) + 1, sizeof(char *));
+	if (!result)
 		return (NULL);
-	idx = 0;
-	idx_words = 0;
-	while (idx_words < n_words)
+	pos = 0;
+	word_index = 0;
+	while (s[pos])
 	{
-		idx_limit = find_new_limit(s, c, &idx);
-		sol[idx_words] = ft_substr(s, idx, idx_limit - idx + 1);
-		if (sol[idx_words] == NULL)
-			return (free_previous(sol, idx_words));
-		++idx_words;
-		idx = idx_limit;
+		pos = skip_delimiters(s, c, pos);
+		if (!s[pos])
+			break ;
+		start = pos;
+		pos = skip_word(s, c, pos);
+		result[word_index] = ft_substr(s, start, pos - start);
+		if (!result[word_index])
+			return (free_all(result, word_index), NULL);
+		word_index++;
 	}
-	sol[n_words] = NULL;
-	return (sol);
+	return (result);
 }
 /*
 #include <stdio.h>
