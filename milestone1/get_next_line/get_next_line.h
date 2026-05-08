@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:54 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/07 13:32:31 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:08:14 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 5
 # endif
 
 # include <stdlib.h>
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_strchr(const char *str, int c);
 char	*ft_bzero(char *str, int bytes);
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(char **s1, const char *s2, int max_cpy);
+int		ft_strchr(const char *str, int c);
+int		ft_strlen(const char *s1);
 
 #endif

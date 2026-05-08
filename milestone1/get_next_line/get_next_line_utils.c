@@ -3,36 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jruiz-ag <jruiz-ag@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:51 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/07 13:48:18 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:05:36 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
+int	ft_strchr(const char *str, int c)
 {
 	size_t	cont;
 
+	if (!str)
+		return (-1);
 	cont = 0;
 	while (str[cont])
 	{
 		if (str[cont] == c)
-			return ((char *)&str[cont]);
+			return (cont);
 		++cont;
 	}
-	return (NULL);
+	return (-1);
 }
 
-static int	ft_strlen(const char *s1)
+int	ft_strlen(const char *s1)
 {
 	int	cont;
 
-	cont = 0;
 	if (!s1)
 		return (0);
+	cont = 0;
 	while (s1[cont])
 		++cont;
 	return (cont);
@@ -48,30 +50,31 @@ char	*ft_bzero(char *str, int bytes)
 	return (str);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char **s1, const char *s2, int max_cpy)
 {
 	int		sum_lens;
 	int		s1_len;
 	char	*join;
 	int		idx;
 
-	sum_lens = ft_strlen(s1) + ft_strlen(s2);
+	sum_lens = ft_strlen(*s1) + max_cpy;
 	join = malloc(sum_lens + 1);
 	if (!join)
 		return (NULL);
 	ft_bzero(join, sum_lens + 1);
 	idx = 0;
-	while (s1 && s1[idx])
+	while (*s1 && (*s1)[idx])
 	{
-		join[idx] = s1[idx];
+		join[idx] = (*s1)[idx];
 		++idx;
 	}
 	s1_len = idx;
-	while (s2 && (s2[idx - s1_len]))
+	while (s2 && (idx - s1_len) < max_cpy)
 	{
 		join[idx] = s2[idx - s1_len];
 		idx++;
 	}
-	free((char *)s1);
+	join[idx] = '\0';
+	free(*s1);
 	return (join);
 }

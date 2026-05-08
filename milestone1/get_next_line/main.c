@@ -2,16 +2,26 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+
 int main()
 {
 	int		fd;
 	char	*res;
+	int		cont;
 
-	fd = open("texto", O_RDONLY);
-	if (fd < 1)
-		return (-1);
+	fd = open("quijote", O_RDONLY);
 	res = get_next_line(fd);
-	printf("%s", res);
-	free(res);
-	close(fd);
+	cont = 0;
+	while(cont < 5)
+	{ 
+		if (res)
+		{
+			printf("%s", res);
+			free(res);
+		}
+		else
+			printf("\nNulo");
+		res = get_next_line(fd);
+		++cont;
+	}
 }
