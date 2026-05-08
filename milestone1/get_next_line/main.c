@@ -10,10 +10,12 @@ int main()
 	int		cont;
 
 	fd = open("quijote", O_RDONLY);
-	res = get_next_line(fd);
+	if (fd < 1)
+		return (-1);
 	cont = 0;
 	while(cont < 5)
 	{ 
+		res = get_next_line(fd);
 		if (res)
 		{
 			printf("%s", res);
@@ -21,7 +23,6 @@ int main()
 		}
 		else
 			printf("\nNulo");
-		res = get_next_line(fd);
 		++cont;
 	}
 }
