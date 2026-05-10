@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 100000
 # endif
 
 # include <stdlib.h>
@@ -22,7 +22,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_bzero(char *str, int bytes);
-char	*ft_strjoin(char **s1, const char *s2, int max_cpy);
+char	*ft_strjoin(char **s1, const char *s2);
 int		ft_strchr(const char *str, int c);
 int		ft_strlen(const char *s1);
 
