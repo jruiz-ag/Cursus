@@ -12,6 +12,14 @@
 
 #include "get_next_line.h"
 
+// In this function we control buffer to be free before exit
+static void	safe_exit(char **buffer)
+{
+	if (*buffer)
+		free(*buffer);
+	*buffer = NULL;
+}
+
 // Here we find the newline in file with a limit of BUFFER_SIZE
 static void	find_newline(char **buffer, int fd)
 {
@@ -20,17 +28,17 @@ static void	find_newline(char **buffer, int fd)
 
 	new_read = malloc(BUFFER_SIZE);
 	if (!new_read)
-		*buffer = NULL;
+	{
+		safe_exit(buffer);
+		return ;
+	}
 	while (ft_strchr(*buffer, '\n') == -1)
 	{
 		n_bytes = read(fd, new_read, BUFFER_SIZE);
 		if (n_bytes <= 0)
 		{
 			if (n_bytes == -1)
-			{
-				free(*buffer);
-				*buffer = NULL;
-			}
+				safe_exit(buffer);
 			free(new_read);
 			return ;
 		}

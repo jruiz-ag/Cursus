@@ -14,15 +14,15 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int		fd;
 	char	*res;
 	int		cont;
 
-	fd = open("prueba2", O_RDONLY);
-	if (fd < 1)
+	if (argc < 2)
 		return (-1);
+	fd = open(argv[1], O_RDONLY);
 	res = get_next_line(fd);
 	while (res)
 	{
