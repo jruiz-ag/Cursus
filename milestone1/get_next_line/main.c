@@ -20,7 +20,7 @@ int	main(void)
 	char	*res;
 	int		cont;
 
-	fd = open("texto", O_RDONLY);
+	fd = open("prueba2", O_RDONLY);
 	if (fd < 1)
 		return (-1);
 	res = get_next_line(fd);

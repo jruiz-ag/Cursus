@@ -18,10 +18,9 @@ static void	find_newline(char **buffer, int fd)
 	char	*new_read;
 	int		n_bytes;
 
-	new_read = malloc(BUFFER_SIZE + 1);
+	new_read = malloc(BUFFER_SIZE);
 	if (!new_read)
 		*buffer = NULL;
-	ft_bzero(new_read, BUFFER_SIZE + 1);
 	while (ft_strchr(*buffer, '\n') == -1)
 	{
 		n_bytes = read(fd, new_read, BUFFER_SIZE);
@@ -35,7 +34,7 @@ static void	find_newline(char **buffer, int fd)
 			free(new_read);
 			return ;
 		}
-		*buffer = ft_strjoin(buffer, new_read);
+		*buffer = ft_strjoin(buffer, new_read, n_bytes);
 	}
 	free(new_read);
 }

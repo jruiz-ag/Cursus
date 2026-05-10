@@ -40,28 +40,17 @@ int	ft_strlen(const char *s1)
 	return (cont);
 }
 
-char	*ft_bzero(char *str, int bytes)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < bytes)
-		str[idx++] = '\0';
-	return (str);
-}
-
-char	*ft_strjoin(char **s1, const char *s2)
+char	*ft_strjoin(char **s1, const char *s2, int max_cpy)
 {
 	int		sum_lens;
 	int		s1_len;
 	char	*join;
 	int		idx;
 
-	sum_lens = ft_strlen(*s1) + ft_strlen(s2);
+	sum_lens = ft_strlen(*s1) + max_cpy;
 	join = malloc(sum_lens + 1);
 	if (!join)
 		return (NULL);
-	ft_bzero(join, sum_lens + 1);
 	idx = 0;
 	while (*s1 && (*s1)[idx])
 	{
@@ -69,7 +58,7 @@ char	*ft_strjoin(char **s1, const char *s2)
 		++idx;
 	}
 	s1_len = idx;
-	while (s2[idx - s1_len])
+	while (s2 && (idx - s1_len) < max_cpy)
 	{
 		join[idx] = s2[idx - s1_len];
 		idx++;

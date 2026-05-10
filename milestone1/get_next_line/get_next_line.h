@@ -21,8 +21,7 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_bzero(char *str, int bytes);
-char	*ft_strjoin(char **s1, const char *s2);
+char	*ft_strjoin(char **s1, const char *s2, int max_cpy);
 int		ft_strchr(const char *str, int c);
 int		ft_strlen(const char *s1);
 
