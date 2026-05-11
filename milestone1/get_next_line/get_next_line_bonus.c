@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:22 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/11 19:22:10 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:19:40 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 // In this function we control buffer to be free before exit
 void	safe_exit(char **buffer)
@@ -26,13 +26,10 @@ static void	find_newline(char **buffer, int fd)
 	char	*new_read;
 	int		n_bytes;
 
-	if (ft_strchr(*buffer, '\n') != -1)
-		return ;
 	new_read = malloc(BUFFER_SIZE + 1);
 	if (!new_read)
 		return (safe_exit(buffer));
-	n_bytes = 1;
-	while (n_bytes > 0)
+	while (ft_strchr(*buffer, '\n') == -1)
 	{
 		n_bytes = read(fd, new_read, BUFFER_SIZE);
 		if (n_bytes <= 0)
@@ -44,8 +41,6 @@ static void	find_newline(char **buffer, int fd)
 		}
 		new_read[n_bytes] = '\0';
 		*buffer = ft_strjoin(buffer, new_read, n_bytes);
-		if (ft_strchr(new_read, '\n') != -1)
-			break ;
 	}
 	free(new_read);
 }
@@ -106,15 +101,15 @@ static char	*after_newline(char **s1, const char *s2)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer = NULL;
+	static char	*buffer[1024];
 	char		*first_part;
 
-	find_newline(&buffer, fd);
-	if (!buffer)
+	find_newline(&buffer[fd], fd);
+	if (!buffer[fd])
 		return (NULL);
-	first_part = until_newline(buffer);
+	first_part = until_newline(buffer[fd]);
 	if (!first_part)
-		return (safe_exit(&buffer), NULL);
-	buffer = after_newline(&buffer, first_part);
+		return (safe_exit(&buffer[fd]), NULL);
+	buffer[fd] = after_newline(&buffer[fd], first_part);
 	return (first_part);
 }

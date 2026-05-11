@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/10 14:07:53 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/11 20:06:44 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/05/07 09:34:54 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/11 20:05:04 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int	main(void)
-{
-	int		fd;
-	char	*res;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
-	fd = open("quijote", O_RDONLY);
-	//fd = 0;
-	res = get_next_line(fd);
-	while (res)
-	{
-		if (res)
-		{
-			printf("%s", res);
-			free(res);
-		}
-		else
-			printf("\nNulo");
-		res = get_next_line(fd);
-	}
-	//close(fd);
-}
+# include <stdlib.h>
+# include <unistd.h>
+
+char	*get_next_line(int fd);
+char	*ft_strjoin(char **s1, const char *s2, int max_cpy);
+int		ft_strchr(const char *str, int c);
+int		ft_strlen(const char *s1);
+void	safe_exit(char **buffer);
+
+#endif
