@@ -10,34 +10,34 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= nombre_ejecutable
+NAME	= executable_name
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 SRC		= todos_los.c 
 OBJ_DIR = obj
 OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-# La regla all siempre debe ser la primera
+# All needs to be always the first rule
 all: $(NAME)
 
-# Compilación del ejecutable
+# Executable compilation
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
-# Compilación de objectos en carpeta oculta
+# Object compilation in a hide directory
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpieza de objetos
+# Cleaning objects
 clean:
 	rm -rf $(OBJ_DIR)
 
-# Limpieza completa
+# Full clean
 fclean: clean
 	rm -f $(NAME)
 
-# Recompila todo desde cero
+# Recompile all from the beggining
 re: fclean all
 
 .PHONY: all clean fclean re
