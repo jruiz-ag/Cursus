@@ -14,7 +14,7 @@ NAME	= libft.a
 CC = CC
 LIBC = ar rcs
 CFLAGS	= -Wall -Wextra -Werror
-SRC	= todos_los.c 
+SRC	= todos_los.c
 OBJECTS	= $(SRC:.c=.o)
 
 # La regla all siempre debe ser la primera
