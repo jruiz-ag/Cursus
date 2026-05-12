@@ -29,7 +29,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 # Regla implícita para objetos
-obj/%.o: %.c
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza de objetos
