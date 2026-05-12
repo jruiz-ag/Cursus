@@ -33,7 +33,7 @@ all: $(OBJ_DIR) | $(NAME)
 $(NAME): $(OBJECTS)
 	$(LIBC) $(NAME) $(OBJECTS)
 
-# Creating a directory to hide objectss
+# Creating a directory to hide objects
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
