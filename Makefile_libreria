@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= libft.a
-CC = CC
+CC = cc
 LIBC = ar rcs
 CFLAGS	= -Wall -Wextra -Werror
 SRC	= todos_los.c
