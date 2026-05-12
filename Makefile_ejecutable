@@ -18,18 +18,15 @@ OBJ_DIR = obj
 OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 # La regla all siempre debe ser la primera
-all: $(OBJ_DIR) | $(NAME)
+all: $(NAME)
 
 # Compilación del ejecutable
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
-# Creamos un repositorio para esconder los objetos
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-# Regla implícita para objetos
+# Regla implícita para objetos en carpeta oculta
 $(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza de objetos
