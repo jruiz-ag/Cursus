@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= rush-02
+NAME	= nombre_ejecutable
 CC	= cc
 CFLAGS	= -Wall -Wextra -Werror
 SRC	= todos_los.c 
@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
-# Regla implícita para objetos en carpeta oculta
+# Compilación de objectos en carpeta oculta
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
