@@ -15,7 +15,8 @@ CC = CC
 LIBC = ar rcs
 CFLAGS	= -Wall -Wextra -Werror
 SRC	= todos_los.c
-OBJECTS	= $(SRC:.c=.o)
+OBJ_DIR = obj
+OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 # La regla all siempre debe ser la primera
 all: $(NAME)
