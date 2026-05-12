@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:22 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/11 19:22:10 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:16:26 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ char	*get_next_line(int fd)
 	static char	*buffer = NULL;
 	char		*first_part;
 
+	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) == -1)
+		return (safe_exit(&buffer), NULL);
 	find_newline(&buffer, fd);
 	if (!buffer)
 		return (NULL);

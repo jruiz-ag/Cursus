@@ -23,6 +23,8 @@ Si deseas probar la función con un archivo de texto:
 
 Crea un archivo main.c que llame a get_next_line en un bucle iterativo, hasta que reciba un puntero de string a NULL.
 
+Ya tienes unos main.c incluidos por si quieres probar la lectura de un archivo o de varios de forma simultánea. Solo tendrías que incluir los main*.c dentro de la carpeta /test.
+
 ## ⚠️ Advertencia sobre Gestión de Memoria
 
 Es importante tener en cuenta que get_next_line reserva memoria dinámicamente utilizando malloc para cada línea que devuelve. Es responsabilidad exclusiva del programador que utiliza la función liberar (free) la memoria de cada línea devuelta para evitar fugas de memoria (memory leaks).
