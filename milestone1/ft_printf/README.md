@@ -16,13 +16,15 @@ Esto creará el archivo libftprintf.a en la raíz del repositorio.
 
 ### Uso
 Para utilizar la función en tus proyectos, incluye el encabezado correspondiente y vincula la librería al compilar: 
-```#include "ft_printf.h"```
 
+	#include "ft_printf.h"
 	int main(void)
 	{
 		ft_printf("Imprimiendo un número: %d y un hex: %X\n", 42, 42);
 		return (0);
 	}
+
+Y solo queda compilar junto a la librería estática:  ```cc main.c libftprintf.a```
 
 ## Conversiones Soportadas
 | Formato | Descripción |
