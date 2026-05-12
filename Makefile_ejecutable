@@ -11,9 +11,9 @@
 # **************************************************************************** #
 
 NAME	= nombre_ejecutable
-CC	= cc
+CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
-SRC	= todos_los.c 
+SRC		= todos_los.c 
 OBJ_DIR = obj
 OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
