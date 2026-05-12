@@ -30,7 +30,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 # Compilación de objetos
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza de objetos
