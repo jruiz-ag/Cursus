@@ -19,18 +19,15 @@ OBJ_DIR = obj
 OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 # La regla all siempre debe ser la primera
-all: $(OBJ_DIR) | $(NAME)
+all: $(NAME)
 
 # Creación de la librería estática
 $(NAME): $(OBJECTS)
 	$(LIBC) $(OBJ) -o $(NAME)
 
-# Creamos un directorio para esconder los objetos
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-# Compilación de objetos
+# Compilación de objetos en carpeta oculta
 $(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza de objetos
@@ -44,4 +41,4 @@ fclean: clean
 # Recompila todo desde cero
 re: fclean $(NAME)
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re
