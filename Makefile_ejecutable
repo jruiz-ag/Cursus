@@ -14,22 +14,27 @@ NAME	= rush-02
 CC	= cc
 CFLAGS	= -Wall -Wextra -Werror
 SRC	= todos_los.c 
-OBJ	= $(SRC:.c=.o)
+OBJ_DIR = obj
+OBJECTS	= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 # La regla all siempre debe ser la primera
-all: $(NAME)
+all: $(OBJ_DIR) | $(NAME)
 
 # Compilación del ejecutable
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+
+# Creamos un repositorio para esconder los objetos
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 # Regla implícita para objetos
-%.o: %.c
+obj/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpieza de objetos
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 # Limpieza completa
 fclean: clean
@@ -38,4 +43,4 @@ fclean: clean
 # Recompila todo desde cero
 re: fclean all
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re
