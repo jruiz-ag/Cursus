@@ -23,7 +23,7 @@ Si deseas probar la función con un archivo de texto:
 
 Crea un archivo main.c que llame a get_next_line en un bucle iterativo, hasta que reciba un puntero de string a NULL.
 
-Ya tienes unos main.c incluidos por si quieres probar la lectura de un archivo o de varios de forma simultánea. Solo tendrías que incluir los main*.c dentro de la carpeta /test.
+Ya tienes unos main.c incluidos por si quieres probar la lectura de un archivo o de varios de forma simultánea. Solo tendrías que incluir en la compilación los *main.c*, que se encuentran dentro de la carpeta /test.
 
 ## ⚠️ Advertencia sobre Gestión de Memoria
 
