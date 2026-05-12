@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= libft.a
+NAME	= nombre_libreria.a
 CC		= cc
 LIBC 	= ar rcs
 CFLAGS	= -Wall -Wextra -Werror
