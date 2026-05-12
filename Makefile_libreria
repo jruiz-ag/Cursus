@@ -23,7 +23,7 @@ all: $(NAME)
 
 # Creación de la librería estática
 $(NAME): $(OBJECTS)
-	$(LIBC) $(OBJ) -o $(NAME)
+	$(LIBC) $(OBJECTS) -o $(NAME)
 
 # Compilación de objetos en carpeta oculta
 $(OBJ_DIR)/%.o: %.c
