@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:22 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/12 16:42:43 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:44:09 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 1024 || read(fd, 0, 0) == -1)
 	{
-		if (0 >= fd && fd < 1024)
+		if (0 <= fd && fd < 1024)
 			safe_exit(&buffer[fd]);
 		return (NULL);
 	}
