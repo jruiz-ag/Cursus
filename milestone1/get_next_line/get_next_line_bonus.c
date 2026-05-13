@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[1024];
 	char		*first_part;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 1024 || read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 1024)
 	{
 		if (0 <= fd && fd < 1024)
 			safe_exit(&buffer[fd]);

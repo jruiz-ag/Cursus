@@ -109,7 +109,7 @@ char	*get_next_line(int fd)
 	static char	*buffer = NULL;
 	char		*first_part;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (safe_exit(&buffer), NULL);
 	find_newline(&buffer, fd);
 	if (!buffer)
