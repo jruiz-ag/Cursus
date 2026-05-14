@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:22 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/14 15:33:21 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/14 17:59:50 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	find_newline(char **buffer, int fd)
 		}
 		new_read[n_bytes] = '\0';
 		*buffer = ft_strjoin(buffer, new_read, n_bytes);
-		if (ft_strchr(new_read, '\n') != -1)
+		if (!*buffer || ft_strchr(new_read, '\n') != -1)
 			break ;
 	}
 	free(new_read);
