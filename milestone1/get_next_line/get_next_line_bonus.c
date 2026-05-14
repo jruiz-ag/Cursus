@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:22 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/12 16:44:09 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/14 15:33:21 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ static void	find_newline(char **buffer, int fd)
 	char	*new_read;
 	int		n_bytes;
 
+	if (ft_strchr(*buffer, '\n') != -1)
+		return ;
 	new_read = malloc(BUFFER_SIZE + 1);
 	if (!new_read)
 		return (safe_exit(buffer));
-	while (ft_strchr(*buffer, '\n') == -1)
+	n_bytes = 1;
+	while (n_bytes > 0)
 	{
 		n_bytes = read(fd, new_read, BUFFER_SIZE);
 		if (n_bytes <= 0)
@@ -41,6 +44,8 @@ static void	find_newline(char **buffer, int fd)
 		}
 		new_read[n_bytes] = '\0';
 		*buffer = ft_strjoin(buffer, new_read, n_bytes);
+		if (ft_strchr(new_read, '\n') != -1)
+			break ;
 	}
 	free(new_read);
 }

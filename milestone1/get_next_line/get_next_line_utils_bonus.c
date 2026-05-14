@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 09:34:51 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/11 19:01:15 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/05/14 15:34:16 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*ft_strjoin(char **s1, const char *s2, int max_cpy)
 	char	*join;
 	int		idx;
 
-	sum_lens = ft_strlen(*s1) + max_cpy;
+	s1_len = ft_strlen(*s1);
+	sum_lens = s1_len + max_cpy;
 	join = malloc(sum_lens + 1);
 	if (!join)
 		return (safe_exit(s1), NULL);
@@ -57,7 +58,6 @@ char	*ft_strjoin(char **s1, const char *s2, int max_cpy)
 		join[idx] = (*s1)[idx];
 		++idx;
 	}
-	s1_len = idx;
 	while (s2 && (idx - s1_len) < max_cpy)
 	{
 		join[idx] = s2[idx - s1_len];
