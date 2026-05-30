@@ -48,7 +48,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
     </td>
     <td valign="middle">
       <h3><a href="milestone1/ft_printf">ft_printf</a></h3>
-      <p>Reimplementación de <code>printf</code> usando argumentos variádicos, tratando una serie de conversiones y tratando los tipos de datos posibles.</p>
+      <p>Reimplementación de <code>printf</code> usando argumentos variádicos, tratando una serie de conversiones y tratando los tipos de datos.</p>
     </td>
   </tr>
 </table>
