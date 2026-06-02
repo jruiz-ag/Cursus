@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:01 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:03 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 20:41:48 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 20:00:37 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*nodo;
+	t_list	*sol;
 
-	nodo = malloc(sizeof(t_list));
-	if (nodo == NULL)
+	sol = ft_calloc(1, sizeof(t_list));
+	if (!sol)
 		return (NULL);
-	nodo->content = content;
-	nodo->next = NULL;
-	return (nodo);
+	sol->content = content;
+	sol->next = NULL;
+	return (sol);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+int main()
 {
-	t_list	*prueba;
-	char	c[] = "Hola";
-
-	prueba = ft_lstnew(c);
-	printf("El content es: %s\n", prueba->content);
-	printf("El next es: %p\n", prueba->next);
-	free(prueba);
-	return(0);
-}*/
+	char *aux = "Proof";
+	t_list *root = ft_lstnew(aux);
+	printf("%s\n", (char *)root->content);
+	printf("%p", root->next);
+}
+*/

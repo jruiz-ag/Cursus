@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:21:22 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:21:23 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 17:45:42 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 21:27:01 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,34 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	s_len;
-	size_t	i;
-	char	*ptr;
+	size_t	len;
+	char	*sol;
+	size_t	cont;
 
-	if (s == NULL || f == NULL)
+	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
-	ptr = ft_calloc((s_len + 1), sizeof(char));
-	if (ptr == NULL)
+	len = ft_strlen(s);
+	sol = ft_calloc(len + 1, sizeof(char));
+	if (sol == NULL)
 		return (NULL);
-	i = 0;
-	while (i < s_len)
+	cont = 0;
+	while (cont < len)
 	{
-		ptr[i] = f(i, s[i]);
-		++i;
+		sol[cont] = f(cont, s[cont]);
+		++cont;
 	}
-	return (ptr);
+	return (sol);
 }
-
 /*
 #include <stdio.h>
-#include <stdlib.h>
-
-char custom_function(unsigned int index, char c)
+char func(unsigned int idx, char str)
 {
-	if (index % 2 == 0 && c >= 'a' && c <= 'z')
-		return (c - 'a' + 'A');
-	else if (index % 2 != 0 && c >= 'A' && c <= 'Z')
-		return (c - 'A' + 'a');
-	else
-		return (c);
+	return (str + idx);
 }
 
-int	main(void)
+int main()
 {
-	char	s[] = "Argentina";
-	char	*ptr;
-
-	ptr = ft_strmapi(s, custom_function);
-	printf("ptr contiene: %s\n", ptr);
-	free(ptr);
-	return (0);
-}*/
+	char *prueba = "Hello world";
+	printf("%s", ft_strmapi(prueba, func));
+}
+*/

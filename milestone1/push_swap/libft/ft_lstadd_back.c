@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:44 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:45 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/27 18:09:44 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 19:53:41 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,28 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*node;
+	t_list	*last;
 
-	if (new == NULL)
+	if (!lst || !new)
 		return ;
 	if (*lst == NULL)
+	{
 		*lst = new;
-	else
-	{
-		node = *lst;
-		*lst = ft_lstlast(*lst);
-		(*lst)->next = new;
-		*lst = node;
+		return ;
 	}
+	last = ft_lstlast(*lst);
+	last->next = new;
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+int main()
 {
-	t_list	*lst;
-	t_list	*node_1;
-	char	a[] = "Hola";
-	char	b[] = "que";
-	char	c[] = "tal";
-	char	d[] = "?";
-	char	e[] = "Bien";
-
-	lst = ft_lstnew(a);
-	node_1 = ft_lstnew(b);
-	ft_lstadd_back(&lst, node_1);
-	node_1 = ft_lstnew(c);
-	ft_lstadd_back(&lst, node_1);
-	node_1 = ft_lstnew(d);
-	ft_lstadd_back(&lst, node_1);
-	node_1 = ft_lstnew(e);
-	ft_lstadd_back(&lst, node_1);
-	while (lst)
-	{
-		printf("%s\n", (char *)lst->content);
-		lst = lst->next;
-	}
-	free(lst);
-	return (0);
-}*/
+	t_list *n1 = ft_lstnew("Initial Node");
+	t_list *n2 = ft_lstnew("Second Node");
+	ft_lstadd_back(&n1, n2);
+	printf("%s\n", (char *)ft_lstlast(n1)->content);
+	t_list *n3 = ft_lstnew("Third Node - Insert");
+	ft_lstadd_back(&n1, n3);
+	printf("%s", (char *)ft_lstlast(n1)->content);
+}
+*/

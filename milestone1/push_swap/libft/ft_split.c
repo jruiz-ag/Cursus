@@ -3,103 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:20:56 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/23 21:00:22 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/24 15:26:44 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/03 15:13:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	*memory_destroyer(char **splitted, int memory_counter)
+static size_t	count_words(const char *s, char c)
 {
-	int	i;
-
-	i = 0;
-	while (i < memory_counter)
-		free(splitted[i++]);
-	free(splitted);
-	return (NULL);
-}
-
-static size_t	count_substrings(char *s, int c)
-{
-	size_t	count;
+	size_t	n_words;
 	int		flag;
+	int		cont;
 
+	cont = 0;
 	flag = 0;
-	count = 0;
-	if (*s == '\0')
-		return (count);
-	if (*s != c)
-		count++;
-	while (*s)
+	n_words = 0;
+	while (s[cont])
 	{
-		if (*s == (char)c)
-			flag = 1;
-		else if (flag == 1 && *s != (char)c)
+		if (flag == 0 && s[cont] != c)
 		{
-			count++;
-			flag = 0;
+			n_words++;
+			flag = 1;
 		}
-		s++;
+		else if (flag == 1 && s[cont] == c)
+			flag = 0;
+		cont++;
 	}
-	return (count);
+	return (n_words);
 }
 
-static int	offset(char *s, int c)
+static int	skip_delimiters(const char *s, char c, int pos)
 {
-	int	i;
+	while (s[pos] == c)
+		pos++;
+	return (pos);
+}
 
-	i = 0;
-	while (s[i] != (char)c && s[i] != '\0')
-		++i;
-	return (i);
+static int	skip_word(const char *s, char c, int pos)
+{
+	while (s[pos] && s[pos] != c)
+		pos++;
+	return (pos);
+}
+
+static void	free_all(char **arr, int size)
+{
+	while (size--)
+		free(arr[size]);
+	free(arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	*to_split;
-	char	**splitted;
-	size_t	i;
-	size_t	substrings_qty;
+	char	**result;
+	int		pos;
+	int		word_index;
+	int		start;
 
-	i = 0;
-	substrings_qty = count_substrings((char *)s, c);
-	to_split = (char *)s;
-	splitted = (char **)ft_calloc(substrings_qty + 1, sizeof(char *));
-	if (splitted == NULL)
+	if (!s)
 		return (NULL);
-	while (i < substrings_qty)
+	result = ft_calloc(count_words(s, c) + 1, sizeof(char *));
+	if (!result)
+		return (NULL);
+	pos = 0;
+	word_index = 0;
+	while (s[pos])
 	{
-		while (*to_split == c && *to_split != '\0')
-			to_split++;
-		splitted[i] = ft_substr(to_split, 0, offset(to_split, c));
-		if (splitted[i] == NULL)
-			return (memory_destroyer(splitted, i));
-		to_split = ft_strchr(to_split, c);
-		i++;
+		pos = skip_delimiters(s, c, pos);
+		if (!s[pos])
+			break ;
+		start = pos;
+		pos = skip_word(s, c, pos);
+		result[word_index] = ft_substr(s, start, pos - start);
+		if (!result[word_index])
+			return (free_all(result, word_index), NULL);
+		word_index++;
 	}
-	return (splitted);
+	return (result);
 }
-
-/*The ft_substr also can return a NULL, 
-because of that it's necessary to repeat the if statement*/
 /*
-int	main(void)
+#include <stdio.h>
+int main(int argc, char **argv)
 {
-	char	s[] = "oco";
-	char	c = 'c';
-	char	**splitted;
-	int		i;
+	char	**sol;
+	int		index;
 
-	i = 0;
-	splitted = ft_split(s, c);
-	while (splitted[i] != NULL)
+	if (argc < 3)
+		return (-1);
+
+	sol = ft_split("Dos palabras", argv[2][0]);
+	index = 0;
+	while (sol[index])
 	{
-		printf("splitted[%d] contiene: %s\n", i, splitted[i]);
-		++i;
+		printf("%s\n", sol[index]);
+		++index;
 	}
-	return (0);
-}*/
+}
+*/

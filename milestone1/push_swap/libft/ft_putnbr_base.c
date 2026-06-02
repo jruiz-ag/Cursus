@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_destroyer.c                               :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/02 16:56:46 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/06/02 16:56:46 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/05/12 18:52:45 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/20 20:44:35 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_split_destroyer(char ***matrix)
+int	ft_putnbr(int const nbr, char const *base)
 {
-	int	cont;
+	int		cont;
+	int		long_base;
+	long	ctrl;
 
 	cont = 0;
-	while ((*matrix)[cont])
+	ctrl = nbr;
+	if (ctrl < 0)
 	{
-		free((*matrix)[cont]);
-		++cont;
+		cont += write(1, "-", 1);
+		ctrl *= -1;
 	}
-	free(*matrix);
+	long_base = ft_strlen_prnt(base);
+	if (ctrl >= long_base)
+		cont += ft_putnbr(ctrl / long_base, base);
+	ctrl %= long_base;
+	cont += write(1, &base[ctrl], 1);
+	return (cont);
 }

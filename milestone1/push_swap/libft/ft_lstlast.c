@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:33 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:34 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/27 18:04:41 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 20:04:21 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,23 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*node;
-
-	node = lst;
 	if (!lst)
 		return (NULL);
-	while (node->next)
-		node = node->next;
-	return (node);
+	while (lst -> next)
+		lst = lst -> next;
+	return (lst);
 }
 
-/*int	main(void)
+/*
+#include <stdio.h>
+int main()
 {
-	t_list	*lst;
-	t_list	*node_1;
-	t_list	*last_node;
-	char	a[] = "Chau";
-	char	b[] = "que";
-	char	c[] = "tal";
-	char	d[] = "?";
-
-	lst = ft_lstnew(d);
-	node_1 = ft_lstnew(c);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(b);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(a);
-	ft_lstadd_front(&lst, node_1);
-	last_node = ft_lstlast(lst);
-	last_node = ft_lstlast(NULL);
-	printf("El content de last_node es: %s\n", (char *)last_node->content);
-	printf("El next de last_node es: %p\n", last_node->next);
-	free(lst);
-	return(0);
+	t_list *n1 = ft_lstnew("Initial Node");
+	t_list *n2 = ft_lstnew("Second Node");
+	n1->next = n2;
+	printf("%s\n", (char *)ft_lstlast(n1)->content);
+	t_list *n3 = ft_lstnew("Third Node - Insert");
+	n2->next = n3;
+	printf("%s", (char *)ft_lstlast(n1)->content);
 }
 */

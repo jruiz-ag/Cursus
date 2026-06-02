@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:19:37 by lupin             #+#    #+#             */
-/*   Updated: 2026/05/11 20:43:55 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/23 17:50:12 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/04 16:14:15 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,48 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*ptr;
+	void	*res;
+	size_t	max;
 
-	if (nmemb * size > SIZE_MAX)
+	if (nmemb == 0 || size == 0)
+		max = 0;
+	else if (nmemb > (SIZE_MAX / size))
 		return (NULL);
-	ptr = (char *)malloc(nmemb * size);
-	if (ptr == NULL)
+	else
+		max = nmemb * size;
+	res = malloc(max);
+	if (res == NULL)
 		return (NULL);
-	ft_bzero(ptr, (nmemb * size));
-	return (ptr);
+	ft_bzero(res, max);
+	return (res);
 }
-
 /*
-int	main(void)
+#include <stdio.h>
+#include <stdint.h>
+int main()
 {
-	size_t	nmemb;
-	char	*ptr;
-	char	*pointer;
+	int *ft_nums = ft_calloc(2, sizeof(int));
+	ft_nums[0] = 1;
+	ft_nums[1] = 2;
+	printf("%d %d\n", ft_nums[0], ft_nums[1]);
 
-	nmemb = 5;
-	ptr = NULL;
-	ptr = ft_calloc(0, 0);
-	printf("La dirección de ptr es: %p\n", ptr);
-	free(ptr);
-	printf("La dirección de ptr es: %p\n", ptr);
-	ptr = ft_calloc(nmemb, sizeof(char));
-	ft_memset(ptr, 'a', (nmemb * sizeof(char)));
-	printf("ptr contiene: %s\n", ptr);
-	printf("La longitud de ptr es: %zu\n", ft_strlen(ptr));
-	printf("La dirr de ptr es: %p\n", ptr);
-	pointer = calloc(nmemb, sizeof(char));
-	ft_memset(pointer, 42, (nmemb * sizeof(char)));
-	printf("pointer contiene: %s\n", pointer);
-	printf("La longitud de pointer es: %zu\n", ft_strlen(pointer));
-	printf("La dirr de pointer es: %p\n", pointer);
-	return (0);
-}*/
+	int *nums = calloc(2, sizeof(int));
+	nums[0] = 1;
+	nums[1] = 2;
+	printf("%d %d\n", nums[0], nums[1]);
+
+	int *ft_nums_1 = ft_calloc(SIZE_MAX, 2);
+	if (!ft_nums_1)
+    	printf("overflow detectado\n");
+
+	int *nums_1 = calloc(SIZE_MAX, 2);
+	if (!nums_1)
+    	printf("overflow detectado\n");
+
+	int *ft_nums_2 = ft_calloc(0, 1);
+	free(ft_nums_2);
+
+	int *nums_2 = ft_calloc(0, 1);
+	free(nums_2);
+}
+*/

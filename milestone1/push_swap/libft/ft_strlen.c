@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:15:25 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/22 19:51:35 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/20 18:22:46 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:42:41 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	len;
+	size_t	cont;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	cont = 0;
+	while (s[cont])
+		++cont;
+	return (cont);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <string.h>
+int main()
 {
-	char	arr[6] = "Hello";
+	char s[11] = "Poco menos";
 
-	printf("strlen(%s) = %lu\n", arr, strlen(arr));
-	printf("ft_strlen(%s) = %lu\n", arr, ft_strlen(arr));
-}*/
+	printf("%zu ", ft_strlen(s));
+	printf("%zu ", strlen(s));
+	
+	printf("%zu ", ft_strlen("Hola que pasa"));
+	printf("%zu ", strlen("Hola que pasa"));
+}
+*/

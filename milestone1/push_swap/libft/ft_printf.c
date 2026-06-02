@@ -3,67 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/13 19:43:25 by lupin             #+#    #+#             */
-/*   Updated: 2026/05/13 21:46:50 by lupin            ###   ########.fr       */
+/*   Created: 2026/05/12 18:13:53 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/12 20:17:57 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	select_format(va_list arg, int type, int *count)
+static int	special_case(char const *str, va_list list)
 {
-	unsigned long long	ptr;
+	int	cont;
 
-	if (type == 'c')
-		ft_printchar(va_arg(arg, int), count);
-	else if (type == 's')
-		ft_printstr(va_arg(arg, char *), count);
-	else if (type == 'i' || type == 'd')
-		ft_castnbr(va_arg(arg, int), 10, 0, count);
-	else if (type == 'u')
-		ft_castnbr(va_arg(arg, unsigned int), 10, 0, count);
-	else if (type == 'x')
-		ft_castnbr(va_arg(arg, unsigned int), 16, 0, count);
-	else if (type == 'X')
-		ft_castnbr(va_arg(arg, unsigned int), 16, 1, count);
-	else if (type == 'p')
-	{
-		ptr = va_arg(arg, unsigned long long);
-		if (ptr == 0)
-			ft_printstr("(nil)", count);
-		else
-		{
-			ft_printstr("0x", count);
-			ft_unsigned_castnbr(ptr, 16, 0, count);
-		}
-	}
+	cont = 0;
+	if (*str == 'c')
+		cont += ft_putchar(va_arg(list, int));
+	else if (*str == 's')
+		cont += ft_putstr(va_arg(list, char *));
+	else if (*str == 'p')
+		cont += ft_putdir(va_arg(list, unsigned long));
+	else if ((*str == 'd') || (*str == 'i'))
+		cont += ft_putnbr(va_arg(list, int), "0123456789");
+	else if ((*str == 'u'))
+		cont += ft_putnbr_u(va_arg(list, unsigned int), "0123456789");
+	else if (*str == 'x')
+		cont += ft_putnbr_u(va_arg(list, unsigned int), "0123456789abcdef");
+	else if (*str == 'X')
+		cont += ft_putnbr_u(va_arg(list, unsigned int), "0123456789ABCDEF");
+	else if (*str == '%')
+		cont += write(1, "%", 1);
+	else if (*str == 'g')
+		cont += ft_putdecimal(va_arg(list, double));
+	return (cont);
 }
 
 int	ft_printf(char const *str, ...)
 {
-	va_list	ap;
-	int		i;
-	int		count;
+	va_list		list;
+	int			cont;
 
-	va_start(ap, str);
-	i = 0;
-	count = 0;
-	while (str[i] && count != -1)
+	if (!str)
+		return (-1);
+	cont = 0;
+	va_start(list, str);
+	while (*str)
 	{
-		if (str[i] == '%')
+		if (*str == '%')
 		{
-			i++;
-			if (str[i] == '%')
-				ft_printchar(str[i], &count);
-			else
-				select_format(ap, str[i], &count);
+			++str;
+			cont += special_case(str, list);
 		}
 		else
-			ft_printchar(str[i], &count);
-		i++;
+			cont += write(1, str, 1);
+		++str;
 	}
-	va_end(ap);
-	return (count);
+	va_end(list);
+	return (cont);
 }

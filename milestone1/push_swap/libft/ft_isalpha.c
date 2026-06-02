@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:13:43 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:13:44 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/20 16:42:29 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:37:59 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ('a' <= c && c <= 'z')
+		return (1);
+	else if ('A' <= c && c <= 'Z')
 		return (1);
 	return (0);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <ctype.h>
+int main()
 {
-	int	a;
-	int	b;
+	printf("%d ", ft_isalpha('a'));
+	printf("%d ", isalpha('a'));
 
-	a = 'a';
-	b = '0';
-	printf("isalpha(%c) = %d\n", a, isalpha(a));
-	printf("ft_isalpha(%c) = %d\n", a, ft_isalpha(a));
-	printf("isalpha(%c) = %d\n", b, isalpha(b));
-	printf("ft_isalpha(%c) = %d\n", b, ft_isalpha(b));
-}*/
+	printf("%d ", ft_isalpha(0x0c));
+	printf("%d ", isalpha(0x0c));
+
+	printf("%d ", ft_isalpha('D'));
+	printf("%d ", isalpha('D'));
+
+	printf("%d ", ft_isalpha(127));
+	printf("%d", isalpha(127));
+}
+*/

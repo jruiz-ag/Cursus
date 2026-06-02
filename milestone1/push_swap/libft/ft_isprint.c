@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:15:09 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:15:12 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/20 18:22:01 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:39:14 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 int	ft_isprint(int c)
 {
-	if (c >= 32 && c <= 126)
+	if (32 <= c && c <= 126)
 		return (1);
 	return (0);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <ctype.h>
+int main()
 {
-	int	a;
-	int	b;
+	printf("%d ", ft_isprint('a'));
+	printf("%d ", isprint('a'));
 
-	a = 31;
-	b = 32;
-	printf("isprint(%c) = %d\n", a, isprint(a));
-	printf("ft_isasccii(%c) = %d\n", a, ft_isprint(a));
-	printf("isprint(%c) = %d\n", b, isprint(b));
-	printf("ft_isprint(%c) = %d\n", b, ft_isprint(b));
-}*/
+	printf("%d ", ft_isprint(0xff));
+	printf("%d ", isprint(0xff));
+	
+	printf("%d ", ft_isprint(0x0c));
+	printf("%d", isprint(0x0c));
+}
+*/

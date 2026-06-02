@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:21:46 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:21:47 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 18:29:22 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 18:48:51 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,16 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	if (fd != -1)
-		write(fd, &c, 1);
+	write(fd, &c, 1);
 }
-
-/*#include <fcntl.h>
-
-int	main(void)
+/*
+#include <fcntl.h>
+int main()
 {
-	int		fd;
-	char	c;
+	ft_putchar_fd('a', 0);
 
-	c = 'c';
-	fd = open("prueba_txt.txt", O_RDWR);
-	if (fd != -1)
-	{
-		ft_putchar_fd(c, fd);
-		printf("El fd es: %i", fd);
-		close(fd);
-	}
-	else
-		printf("Fallo la apertura");
-	return (0);
-}*/
-//En open utilizo el flag 'O_RDWR' para tener acceso de lectura y escritura
+	int fd = open("eval.md", O_CREAT|O_TRUNC|O_WRONLY, 0666);
+	ft_putchar_fd('c', fd);
+	close(fd);
+}
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:18:35 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:57:10 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/23 17:07:33 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/23 17:45:16 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,48 @@
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int		ret;
-	size_t	little_len;
 	size_t	big_len;
+	size_t	little_len;
+	size_t	cont;
 
-	little_len = ft_strlen(little);
+	if (!big || !little)
+		return (NULL);
+	cont = 0;
 	big_len = ft_strlen(big);
-	if (*little == '\0')
+	little_len = ft_strlen(little);
+	if (little_len == 0)
 		return ((char *)big);
-	while (len >= little_len && big_len != 0)
+	if (big_len > len)
+		big_len = len;
+	while ((cont + little_len) <= big_len)
 	{
-		if (*big == *little)
+		if (big[cont] == little[0])
 		{
-			ret = ft_strncmp(big, little, little_len);
-			if (ret == 0)
-				return ((char *)big);
+			if (ft_strncmp(&big[cont], little, little_len) == 0)
+				return (&((char *)big)[cont]);
 		}
-		big++;
-		--len;
-		--big_len;
+		++cont;
 	}
 	return (NULL);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <bsd/string.h>
+int main()
 {
-	char	arr[] = "Argenentina";
-	char	arr_1[] = "ent";
-	size_t	len = 7;
-	char	*ft_prueba = ft_strnstr(arr, arr_1, len);
-	char	*prueba = strnstr(arr, arr_1, len);
+	char *s1 = "Esto es un string largo";
+	char *s2 = "es un";
+	
+	printf("%s\n", ft_strnstr(s1, s2, 10));
+	printf("%s\n\n", strnstr(s1, s2, 10));
 
-	printf("ft_strnstr: %s\n", ft_prueba);
-	printf("strnstr: %s\n", prueba);
-	return (0);
-}*/
+	printf("%s\n", ft_strnstr(s1, s2, 9));
+	printf("%s\n\n", strnstr(s1, s2, 9));
+
+
+	char *s3 = "Esto es una prueba";
+	char *s4 = "algo asi";
+	printf("%s\n", ft_strnstr(s3, s4, 30));
+	printf("%s\n", strnstr(s3, s4, 30));
+}
+*/

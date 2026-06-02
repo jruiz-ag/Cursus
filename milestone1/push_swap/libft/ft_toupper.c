@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:17:01 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:17:03 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/21 17:52:12 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:45:22 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 int	ft_toupper(int c)
 {
-	if (c >= 97 && c <= 122)
+	if (97 <= c && c <= 122)
 		return (c - 32);
 	return (c);
 }
-
-/*int	main(void)
+/*
+#include <ctype.h>
+#include <stdio.h>
+int main()
 {
-	char	c = '%';
-	char	ft_c = '%';
+	printf("%c ", ft_toupper('c'));
+	printf("%c\n", toupper('c'));
+	
+	printf("%c ", ft_toupper('Z'));
+	printf("%c\n", toupper('Z'));
 
-	printf("El c es: %c\n", ft_toupper(c));
-	printf("El ft_c es: %c\n", ft_toupper(ft_c));
-	return (0);
-}*/
+	printf("%c ", ft_toupper('?'));
+	printf("%c", toupper('?'));
+
+}
+*/

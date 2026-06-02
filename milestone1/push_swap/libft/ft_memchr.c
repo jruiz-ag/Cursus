@@ -3,41 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:17:54 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:17:55 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/23 14:50:24 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/23 16:50:24 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*temp;
+	size_t	i;
 
-	temp = NULL;
-	while (n > 0)
+	i = 0;
+	while (i < n)
 	{
-		if (*(unsigned char *)s == (unsigned char)c)
-		{
-			temp = (char *)s;
-			return (temp);
-		}
-		s++;
-		--n;
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return (&((unsigned char *)s)[i]);
+		i++;
 	}
-	return (temp);
+	return (NULL);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <string.h>
+int main()
 {
-	char	arr[] = "bonjour";
-	char	c = 'o';
-    size_t  n = 7;
-    char    *ft_prueba = ft_memchr(arr, c, n);
-    char    *prueba = memchr(arr, c, n);
-	printf("El puntero contiene: %s\n", ft_prueba);
-	printf("El puntero contiene: %s\n", prueba);
-	return (0);
-}*/
+	char str[] = "Hello, World";
+	char *ptr_1 = ft_memchr(str, 'o', 10);
+	char *ptr_2 = memchr(str, 'o', 10);
+
+	printf("%s\n", ptr_1);
+	printf("%s\n", ptr_2);
+
+	char *ptr_3 = ft_memchr(str, 'o', 2);
+	char *ptr_4 = memchr(str, 'o', 2);
+
+	printf("%s\n", ptr_3 ? ptr_3 : "(null)");
+	printf("%s\n", ptr_4 ? ptr_4 : "(null)");
+}
+*/

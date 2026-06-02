@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:13:58 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:14:00 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/20 16:42:38 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:38:55 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
+	if ('0' <= c && c <= '9')
 		return (1);
 	return (0);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <ctype.h>
+int main()
 {
-	char	a;
-	char	b;
+	printf("%d ", ft_isdigit('a'));
+	printf("%d ", isdigit('a'));
 
-	a = 'a';
-	b = '0';
-	printf("isdigit(%c) = %d\n", a, isdigit(a));
-	printf("ft_isdigit(%c) = %d\n", a, ft_isdigit(a));
-	printf("isdigit(%c) = %d\n", b, isdigit(b));
-	printf("ft_isdigit(%c) = %d\n", b, ft_isdigit(b));
-}*/
+	printf("%d ", ft_isdigit('3'));
+	printf("%d ", isdigit('3'));
+	
+	printf("%d ", ft_isdigit(0x0c));
+	printf("%d", isdigit(0x0c));
+}
+*/

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:53 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:54 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/27 18:54:32 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 19:59:26 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,18 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (lst != NULL || del != NULL)
-	{
-		del(lst->content);
-		free(lst);
-	}
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }
 
-/*void	del(void *s)
+/*
+int main()
 {
-	while (*(char *)s)
-	{
-		*(char *)s = 0;
-		s++;
-	}
+	t_list	*t1 = ft_lstnew(ft_strdup("Various things"));
+	t_list	*t2 = ft_lstnew(ft_strdup("Two things"));
+	t1 -> next = t2;
+	ft_lstdelone(t1, free);
 }
-
-int	main(void)
-{
-	t_list	*lst;
-	t_list	*node_1;
-	char	a[] = "Hola";
-	char	b[] = "que";
-	char	c[] = "tal";
-	char	d[] = "?";
-	char	e[] = "Bien";
-
-	lst = ft_lstnew(d);
-	node_1 = ft_lstnew(c);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(b);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(a);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(e);
-	ft_lstadd_back(&lst, node_1);
-	ft_lstdelone(lst, del);
-	printf("La direccion de la lista completa es: %p\n", lst);
-	while (lst)
-	{
-		printf("El contenido de la lista completa es: %s\n", lst->content);
-		lst = lst->next;
-	}
-	return (0);
-}*/
+*/

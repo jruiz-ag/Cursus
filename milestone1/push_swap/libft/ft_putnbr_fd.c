@@ -3,57 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:22:14 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:22:16 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 20:05:17 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 20:28:25 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+static int	cont_digits(int num)
 {
-	char	mod;
-	int		div;
+	int	len;
 
-	div = n / 10;
-	mod = (n % 10) + '0';
-	if (fd != -1)
+	len = 0;
+	if (num == 0)
+		return (1);
+	while (num != 0)
 	{
-		if (n == -2147483648)
-		{
-			write(fd, "-2147483648", 11);
-			return ;
-		}
-		if (n < 0)
-		{
-			write(fd, "-", 1);
-			ft_putnbr_fd(-n, fd);
-		}
-		else if (div != 0)
-			ft_putnbr_fd(div, fd);
-		if (mod >= '0' && mod <= '9')
-			write(fd, &mod, 1);
+		num /= 10;
+		len++;
 	}
+	return (len);
 }
 
-/*#include <fcntl.h>
-
-int	main(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		fd;
-	int		n = 0;
+	int		len;
+	char	c;
 
-	fd = open("prueba_txt.txt", O_RDWR);
-	if (fd != -1)
+	len = cont_digits(n);
+	if (n == -2147483648)
 	{
-		ft_putnbr_fd(n, fd);
-		printf("El fd es: %i", fd);
-		close(fd);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	else
-		printf("Fallo la apertura");
-	return (0);
-}*/
-//En open utilizo el flag 'O_RDWR' para tener acceso de lectura y escritura
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (len > 1)
+		ft_putnbr_fd(n / 10, fd);
+	c = '0' + (n % 10);
+	write(fd, &c, 1);
+}
+
+/*
+#include <fcntl.h>
+int main()
+{
+	ft_putnbr_fd(-1234, 0);
+
+	int fd = open("eval.md", O_CREAT|O_TRUNC|O_WRONLY, 0666);
+	ft_putnbr_fd(-2147483648, fd);
+}
+*/

@@ -12,12 +12,19 @@
 
 #include "libft.h"
 
-int	ft_sqrt(int num)
+double	ft_sqrt(int num)
 {
-	int	n;
+	double	n;
 
 	n = 0;
 	while ((n * n) <= num)
-		++n;
-	return (n - 1);
+		n++;
+	n -= 1;
+	while ((n * n) <= num)
+		n += 0.01;
+	n -= 0.01;
+	while ((n * n) <= num)
+		n = n + 0.001;
+	n -= 0.001;
+	return (n);
 }

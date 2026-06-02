@@ -3,73 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:21:07 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:21:08 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 17:22:38 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 21:26:57 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_int_len(int n)
+static int	cont_digits(int num)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
-	if (n <= 0)
-		++len;
-	while (n != 0)
+	if (num == 0)
+		return (1);
+	while (num != 0)
 	{
-		n = n / 10;
-		++len;
+		num /= 10;
+		len++;
 	}
 	return (len);
 }
 
-static void	ft_save_nbr(char *ptr, long long_n, size_t len)
-{
-	if (long_n == 0)
-		ptr[len - 1] = '0';
-	while (long_n != 0)
-	{
-		ptr[len - 1] = (long_n % 10) + '0';
-		long_n = long_n / 10;
-		--len;
-	}
-}
-
 char	*ft_itoa(int n)
 {
-	char	*ptr;
-	size_t	len;
-	long	n_aux;
+	int		len;
+	char	*sol;
+	int		sign;
+	int		last_digit;
 
-	n_aux = n;
-	len = ft_int_len(n);
-	ptr = ft_calloc((len + 1), sizeof(char));
-	if (ptr == NULL)
-		return (NULL);
+	sign = 0;
+	len = cont_digits(n);
 	if (n < 0)
+		sign = 1;
+	sol = ft_calloc(len + sign + 1, sizeof(char));
+	if (sol == NULL)
+		return (NULL);
+	while (len > 0)
 	{
-		ptr[0] = '-';
-		ft_save_nbr(ptr, -n_aux, len);
+		last_digit = n % 10;
+		if (last_digit < 0)
+			last_digit *= -1;
+		sol[len + sign - 1] = '0' + last_digit;
+		n /= 10;
+		--len;
 	}
-	else
-		ft_save_nbr(ptr, n_aux, len);
-	return (ptr);
+	if (sign == 1)
+		sol[0] = '-';
+	return (sol);
 }
 /*
-int	main(void)
-{
-	int		n;
-	char	*ptr;
-
-	//n = 0;
-	//n = -2147483648;
-	//n = 2147483647;
-	ptr = ft_itoa(n);
-	printf("ptr contiene: %s\n", ptr);
-	return (0);
+#include <stdio.h>
+int main(){
+	printf("%s\n", ft_itoa(1));
+	printf("%s\n", ft_itoa(2147483647));
+	printf("%s", ft_itoa(-2147483648));
 }
 */

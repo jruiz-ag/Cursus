@@ -3,93 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:24:18 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/26 14:14:30 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/28 15:42:13 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/28 16:52:29 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del) (void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*new_node;
-	t_list	*new_content;
+	t_list	*init;
+	t_list	*node;
 
-	new_lst = NULL;
-	if (!lst || !del || !f || !lst->content)
+	if (!lst || !f || !del)
 		return (NULL);
+	init = ft_lstnew(f(lst->content));
+	if (!init)
+		return (NULL);
+	node = init;
+	lst = lst->next;
 	while (lst)
 	{
-		new_content = f(lst->content);
-		new_node = ft_lstnew(new_content);
-		if (!new_node)
+		node->next = ft_lstnew(f(lst->content));
+		if (!node->next)
 		{
-			del(new_content);
-			ft_lstclear(&new_lst, del);
+			ft_lstclear(&init, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&new_lst, new_node);
+		node = node->next;
 		lst = lst->next;
 	}
-	return (new_lst);
+	node->next = NULL;
+	return (init);
 }
 
 /*
-static void	free_content(void *content)
+void del (void *p)
 {
-	free(content);
+	free(p);
 }
 
-static void	*map_to_uppercase(void *content)
+void	*f(void *content)
 {
-	char	*src;
-	char	*mapped;
-	int		i;
+	char	*s;
 
-	src = (char *)content;
-	mapped = ft_strdup(src);
-	if (!mapped)
-		return (NULL);
-	i = 0;
-	while (mapped[i])
+	s = ft_strdup((char *)content);
+	s[0] = 'a';
+	return (s);
+}
+#include <stdio.h>
+int main()
+{
+	t_list *n1 = ft_lstnew(ft_strdup("Initial Node"));
+	t_list *n2 = ft_lstnew(ft_strdup("Second Node"));
+	t_list *n3 = ft_lstnew(ft_strdup("Third Node - Insert"));
+	ft_lstadd_back(&n1, n2);
+	ft_lstadd_back(&n1, n3);
+	t_list *new = ft_lstmap(n1, f, del);
+
+	while (n1)
 	{
-		mapped[i] = (char)ft_toupper((unsigned char)mapped[i]);
-		i++;
+		printf("%s\n", (char *)n1->content);
+		n1 = n1->next;
 	}
-	return (mapped);
-}
 
-static void	print_list(char *label, t_list *lst)
-{
-	int	index;
-
-	printf("%s\n", label);
-	index = 0;
-	while (lst)
+	ft_lstclear(&n1, del);
+	while (new)
 	{
-		printf("  [%d] \"%s\"\n", index, (char *)lst->content);
-		lst = lst->next;
-		index++;
+		printf("%s\n", (char *)new->content);
+		new = new->next;
 	}
-}
-
-int	main(void)
-{
-	t_list	*original;
-	t_list	*mapped;
-
-	original = NULL;
-	ft_lstadd_back(&original, ft_lstnew(ft_strdup("hola")));
-	ft_lstadd_back(&original, ft_lstnew(ft_strdup("42 Malaga")));
-	ft_lstadd_back(&original, ft_lstnew(ft_strdup("LiBfT test")));
-	mapped = ft_lstmap(original, map_to_uppercase, free_content);
-	print_list("Lista original:", original);
-	print_list("\nLista mapeada:", mapped);
-	ft_lstclear(&original, free_content);
-	ft_lstclear(&mapped, free_content);
-	return (0);
+	ft_lstclear(&new, del);
 }
 */

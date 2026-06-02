@@ -6,7 +6,7 @@
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 12:54:58 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/28 13:57:46 by jruiz-ag         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:18:14 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,17 @@ static void	five_sort(t_stack **stack_a, t_stack **stack_b, t_bench *ctr)
 	val = min_value(*stack_a);
 	pos = pos_of_value(*stack_a, val);
 	rotate_stack(stack_a, pos, ctr, 'a');
-	pb(stack_a, stack_b, ctr);
-	val = min_value(*stack_a);
-	pos = pos_of_value(*stack_a, val);
-	rotate_stack(stack_a, pos, ctr, 'a');
-	pb(stack_a, stack_b, ctr);
-	three_sort(stack_a, ctr);
-	pa(stack_a, stack_b, ctr);
-	pa(stack_a, stack_b, ctr);
+	if (compute_disorder(*stack_a) != 0)
+	{
+		pb(stack_a, stack_b, ctr);
+		val = min_value(*stack_a);
+		pos = pos_of_value(*stack_a, val);
+		rotate_stack(stack_a, pos, ctr, 'a');
+		pb(stack_a, stack_b, ctr);
+		three_sort(stack_a, ctr);
+		pa(stack_a, stack_b, ctr);
+		pa(stack_a, stack_b, ctr);
+	}
 }
 
 void	small_sort(t_stack **stack_a, t_stack **stack_b, t_bench *ctr)

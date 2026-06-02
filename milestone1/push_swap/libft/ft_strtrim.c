@@ -3,50 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:20:27 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:20:28 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/24 14:57:07 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 17:59:46 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+static int	is_in_set(char c, char const *set)
 {
-	char	*s1_aux;
-	char	*new;	
-	size_t	len;
-	size_t	i;
-	size_t	j;
+	int	cont;
 
-	i = 0;
-	j = ft_strlen(s1);
-	s1_aux = (char *)s1;
-	if (*s1_aux == '\0')
-		return (ft_strdup(""));
-	while (ft_strchr(set, s1_aux[i]))
-		++i;
-	while (ft_strrchr(set, s1_aux[j]) && j > 0)
-		--j;
-	if (i > j || !s1 || !set)
-		new = ft_calloc(1, sizeof(char));
-	else
+	cont = 0;
+	while (set[cont])
 	{
-		len = (j - i) + 1;
-		new = ft_substr(s1_aux, (unsigned int)i, len);
+		if (set[cont] == c)
+			return (1);
+		++cont;
 	}
-	return (new);
+	return (0);
 }
 
-/*int	main(void)
+static size_t	ft_strlen_whitout_set(const char *s1, const char *set)
 {
-	char	s1[] = "abcdba";
-	char	s2[] = "acb";
-	char	*ptr;
+	size_t	start;
+	size_t	end;
 
-	ptr = ft_strtrim(s1, s2);
-	printf("El puntero contiene: %s\n", ptr);
-	printf("El puntero apunta a: %p\n", ptr);
-	return (0);
-}*/
+	start = 0;
+	while (s1[start] && is_in_set(s1[start], set))
+		start++;
+	end = ft_strlen(s1);
+	while (end > start && is_in_set(s1[end - 1], set))
+		end--;
+	return (end - start);
+}
+
+char	*ft_strtrim(const char *s1, const char *set)
+{
+	size_t	len;
+	size_t	cont;
+	char	*sol;
+
+	if (!s1 || !set)
+		return (NULL);
+	cont = 0;
+	len = ft_strlen_whitout_set(s1, set);
+	sol = ft_calloc(len + 1, sizeof(char));
+	if (sol == NULL)
+		return (NULL);
+	while ((is_in_set(s1[cont], set)) && s1[cont])
+		++cont;
+	ft_memmove(sol, &s1[cont], len);
+	sol[len] = '\0';
+	return (sol);
+}
+/*
+#include <stdio.h>
+int main()
+{
+	// Recorta delante y detrás
+	printf("%s\n", ft_strtrim(" ESTO SOLO SE IMPRIME    :", " :"));
+
+	// Recorta solo delante
+	printf("%s\n", ft_strtrim(" ESTO SOLO SE IMPRIME    :", " "));
+
+	// Recorta solo detrás
+	printf("%s\n", ft_strtrim(" ESTO SOLO SE IMPRIMEbasura", "asrub"));
+
+	// Deja string vacío
+	printf("%s\n", ft_strtrim(" ESTO SOLO", " ESTOL"));
+
+	printf("%s", ft_strtrim("   xxxtripouille", " x"));
+}
+*/

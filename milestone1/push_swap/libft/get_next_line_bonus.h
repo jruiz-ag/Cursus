@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/12 18:14:13 by jruiz-ag          #+#    #+#             */
-/*   Updated: 2026/05/20 20:44:03 by jruiz-ag         ###   ########.fr       */
+/*   Created: 2026/05/07 09:34:54 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/20 20:47:16 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-# include <stdarg.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+
 # include <stdlib.h>
 # include <unistd.h>
 
-int	ft_printf(char const *str, ...);
-int	ft_strlen_prnt(char const *str);
-int	ft_putstr(char const *str);
-int	ft_putchar(int const c);
-int	ft_putnbr(int const nbr, char const *base);
-int	ft_putnbr_u(unsigned int const nbr, char const *base);
-int	ft_putdir(unsigned long const dir);
-int	ft_putdecimal(double num);
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char **s1, const char *s2, int max_cpy);
+int		ft_strchr_n(const char *str, int c);
+int		ft_strlen_gnl(const char *s1);
+void	safe_exit(char **buffer);
 
 #endif

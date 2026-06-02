@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:15:37 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/22 19:52:24 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/20 18:30:01 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:40:37 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,27 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	void	*temp;
+	size_t	cont;
 
-	temp = s;
-	while (n > 0)
+	cont = 0;
+	while (cont < n)
 	{
-		*(unsigned char *)s = (unsigned char) c;
-		--n;
-		s++;
+		((unsigned char *)s)[cont] = c;
+		++cont;
 	}
-	return (temp);
+	return (s);
 }
 /*
-int	main(void)
+#include <string.h>
+#include <stdio.h>
+int main()
 {
-	int		c;
-	size_t	len;
-	char	arr[10] = "bbbbbb";
-	char	*pointer;
-	char	*pointer_1;
+	char s[10] = "Hola";
+	ft_memset(s, 0x12, 3);
+	printf("%d %d %d %d %d\n", s[0], s[1], s[2], s[3], s[4]);
 
-	c = 65;
-	len = 3;
-	pointer = arr;
-	pointer_1 = ft_memset(pointer, c, len);
-	printf("retorno ft_memset (pointer) = %p\n", pointer);
-	printf("retorno ft_memset (pointer_1) = %p\n", pointer_1);
-	printf("Contenido pointer %s\n", pointer);
-	pointer_1 = memset(pointer, c, len);
-	printf("retorno memset (pointer_1) = %s\n", pointer);
-	printf("retorno memset (pointer_1) = %p\n", pointer_1);
-	printf("Contenido pointer %s\n", pointer);
+	char r[10] = "Hola";
+	memset(r, 0x12, 3);
+	printf("%d %d %d %d %d", r[0], r[1], r[2], r[3], r[4]);
 }
 */

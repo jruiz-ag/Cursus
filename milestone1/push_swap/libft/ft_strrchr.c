@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:17:32 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:17:34 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/21 17:58:18 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/24 20:13:44 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,31 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*temp;
+	int		cont;
 
-	temp = NULL;
-	while (*s)
+	if (!s)
+		return (NULL);
+	cont = ft_strlen(s);
+	while (cont >= 0)
 	{
-		if (*s == (char)c)
-			temp = (char *)s;
-		s++;
+		if ((unsigned char)s[cont] == (unsigned char)c)
+			return ((char *)&s[cont]);
+		--cont;
 	}
-	if (*s == (char)c)
-		temp = (char *)s;
-	return (temp);
+	return (NULL);
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+#include <string.h>
+int main()
 {
-	char	arr[] = "Argentinaghfjhgjh";
-	char	c = 'n';
+	printf("%s\n", ft_strrchr("Mi casa es alta", 'a'));
+	printf("%s\n", strrchr("Mi casa es alta", 'a'));
 
-	printf("El puntero contiene: %s\n", ft_strrchr(arr, c));
-	printf("El puntero contiene: %s\n", strrchr(arr, c));
-	return (0);
-}*/
+	printf("%s\n", ft_strrchr("Mi casa es alta", 's'));
+	printf("%s\n", strrchr("Mi casa es alta", 's'));
+	
+	printf("%s\n", ft_strrchr("Mi casa es alta", 'f'));
+	printf("%s", strrchr("Mi casa es alta", 'f'));
+}
+*/

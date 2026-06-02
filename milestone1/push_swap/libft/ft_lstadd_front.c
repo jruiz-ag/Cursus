@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:12 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:13 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 20:59:43 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/27 19:58:23 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
+	if (!lst || !new)
+		return ;
 	new->next = *lst;
 	*lst = new;
 }
-
-/*int	main(void)
+/*
+#include <stdio.h>
+int main()
 {
-	t_list	*prueba;
-	t_list	*prueba_2;
-	char	c[] = "Hola";
-	char	a[] = "Chau";
-
-
-	prueba = ft_lstnew(c);
-	prueba_2 = ft_lstnew(a);
-	ft_lstadd_front(&prueba, prueba_2);
-	printf("El content es: %s\n", prueba->content);
-	prueba = prueba->next;
-	printf("El next es: %s\n", prueba->content);
-	printf("El next es: %p\n", prueba->next);
-	free(prueba);
-	free(prueba_2);
-	return(0);
-}*/
+	t_list *n1 = ft_lstnew("Initial Node");
+	t_list *n2 = ft_lstnew("Second Node");
+	n1->next = n2;
+	t_list *n3 = ft_lstnew("New Node - Insert");
+	ft_lstadd_front(&n1, n3);
+	while(n1->next != NULL)
+	{
+		printf("Content: %s.", (char *)n1->content);
+		printf(" Next direction: %p\n", n1->next);
+		n1 = n1->next;
+	}
+	printf("Content: %s.", (char *)n1->content);
+	printf(" Next direction: %p\n", n1->next);
+}
+*/

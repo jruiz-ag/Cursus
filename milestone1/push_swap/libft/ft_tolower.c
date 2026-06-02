@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:17:12 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:17:13 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/21 17:52:12 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/21 18:44:52 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 int	ft_tolower(int c)
 {
-	if (c >= 65 && c <= 90)
+	if (65 <= c && c <= 90)
 		return (c + 32);
 	return (c);
 }
-
-/*int	main(void)
+/*
+#include <ctype.h>
+#include <stdio.h>
+int main()
 {
-	char	c = '0';
-	char	ft_c = '0';
+	printf("%c ", ft_tolower('c'));
+	printf("%c\n", tolower('c'));
 
-	printf("El c es: %c\n", ft_tolower(c));
-	printf("El ft_c es: %c\n", ft_tolower(ft_c));
-	return (0);
-}*/
+	printf("%c ", ft_tolower('Z'));
+	printf("%c\n", tolower('Z'));
+
+	printf("%c ", ft_tolower('?'));
+	printf("%c", tolower('?'));
+}
+*/

@@ -3,46 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:21:35 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:21:36 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 18:03:34 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 18:26:10 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t	s_len;
-	size_t	i;
+	size_t	len;
+	size_t	cont;
 
-	if (s == NULL || f == NULL)
+	if (!s || !f)
 		return ;
-	s_len = ft_strlen(s);
-	i = 0;
-	while (i < s_len)
+	len = ft_strlen(s);
+	cont = 0;
+	while (cont < len)
 	{
-		f(i, &s[i]);
-		++i;
+		f(cont, &s[cont]);
+		++cont;
 	}
 }
 
-/*void	ft_false_strrchr(unsigned int c, char *s)
+/*
+#include <stdio.h>
+void func(unsigned int idx, char *str)
 {
-	int		i;
-
-	i = (int)c;
-	i = i + 1;
-	if ((*s >= 'A' && *s < 'Z')	|| (*s >= 'a' && *s < 'z'))
-		*s = *s + 1;
+	*str = (*str + idx);
 }
 
-int	main(void)
+int main()
 {
-	char	s[] = "Odqqn";
-
-	ft_striteri(s, ft_false_strrchr);
-	printf("s contiene: %s\n", s);
-	return (0);
-}*/
+	char prueba[] = "Hello world";
+	ft_striteri(prueba, func);
+	printf("%s", prueba);
+}
+*/

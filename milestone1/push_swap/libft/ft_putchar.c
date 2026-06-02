@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroyer.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 19:26:43 by lupin             #+#    #+#             */
-/*   Updated: 2026/05/16 19:26:45 by lupin            ###   ########.fr       */
+/*   Created: 2026/05/12 18:45:53 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/05/12 19:55:10 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_destroyer(char **to_destroy)
+int	ft_putchar(int const c)
 {
-	char	*temp;
-
-	temp = *to_destroy;
-	if (!temp)
-		return (NULL);
-	while (*temp)
-	{
-		*temp = '\0';
-		temp++;
-	}
-	free(*to_destroy);
-	*to_destroy = NULL;
-	return (NULL);
+	write(1, &c, 1);
+	return (1);
 }

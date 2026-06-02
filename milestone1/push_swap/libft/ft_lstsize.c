@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:23:22 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:23:24 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/26 21:18:11 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/28 17:01:57 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,27 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int		i;
-	t_list	*nodo;
+	int	cont;
 
-	i = 0;
-	nodo = lst;
-	while (nodo)
+	cont = 0;
+	while (lst)
 	{
-		nodo = nodo->next;
-		i++;
+		++cont;
+		lst = lst->next;
 	}
-	return (i);
+	return (cont);
 }
 
-/*int	main(void)
+/*
+#include <stdio.h>
+int main()
 {
-	t_list	*prueba;
-	t_list	*prueba_2;
-	char	c[] = "Hola";
-	char	a[] = "Chau";
-	int		i;
-
-
-	prueba = ft_lstnew(c);
-	prueba_2 = ft_lstnew(a);
-	ft_lstadd_front(&prueba, prueba_2);
-	i = ft_lstsize(prueba);
-	printf("El content es: %s\n", prueba->content);
-	prueba = prueba->next;
-	printf("El next es: %s\n", prueba->content);
-	printf("El next es: %p\n", prueba->next);
-	printf("El size es %d\n", i);
-	free(prueba);
-	free(prueba_2);
-	return(0);
-}*/
+	t_list *n1 = ft_lstnew("Initial Node");
+	t_list *n2 = ft_lstnew("Second Node");
+	n1->next = n2;
+	t_list *n3 = ft_lstnew("New Node - Insert");
+	printf("%d\n", ft_lstsize(n1));
+	ft_lstadd_front(&n1, n3);
+	printf("%d", ft_lstsize(n1));
+}
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:16:30 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:51:03 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/21 16:05:35 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/26 19:43:25 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,40 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	*dst_char;
-	char	*src_char;
+	size_t	idx;
 
-	dst_char = (char *)dest;
-	src_char = (char *)src;
-	if (dst_char > src_char && dst_char != NULL && src_char != NULL)
+	if (!dest && !src)
+		return (0);
+	if (dest < src)
+		ft_memcpy(dest, src, n);
+	else
 	{
-		while (n > 0)
+		idx = n;
+		while (idx > 0)
 		{
-			dst_char[n - 1] = src_char[n - 1];
-			--n;
+			((unsigned char *)dest)[idx - 1] = ((unsigned char *)src)[idx - 1];
+			--idx;
 		}
 	}
-	else
-		ft_memcpy(dst_char, src_char, n);
-	return (dst_char);
+	return (dest);
 }
-
-/*int	main(void)
+/*
+#include <string.h>
+#include <stdio.h>
+int main()
 {
-	char	src[] = "Argentina";
-	char	src_1[] = "Argentina";
-	char	src_2[] = "Argentina";
-	char	*prueba_ft;
-	char	*prueba;
-	char	*prueba_memcpy;
+	char dst1[10] = "Hola";
+	char src1[10] = "Vacio?";
+	ft_memmove(dst1, src1, 3);
+	printf("%d %d %d %d %d\n", dst1[0], dst1[1], dst1[2], dst1[3], dst1[4]);
 
-	prueba_ft = ft_memmove(src+3, src, 5);
-	printf("El puntero de prueba_ft contiene: %s\n", prueba_ft);
-	printf("El src contiene: %s\n", src);
-	prueba = memmove(src_1+3, src_1, 5);
-	prueba_memcpy = memcpy(src_2+3, src_2, 5);
-	printf("El puntero de prueba contiene: %s\n", prueba);
-	printf("El src_1 contiene: %s\n", src_1);
-	printf("El puntero de prueba_memcpy contiene: %s\n", prueba_memcpy);
-	printf("El src_2 contiene: %s\n", src_2);
-	return (0);
-}*/
+	char dst2[10] = "Hola";
+	char src2[10] = "Vacio?";
+	memmove(dst2, src2, 3);
+	printf("%d %d %d %d %d\n", dst2[0], dst2[1], dst2[2], dst2[3], dst2[4]);
+
+	char dst3[4] = "ABCD";
+	ft_memmove(&dst3[1], dst3, 2);
+	printf("%s", dst3);
+}
+*/

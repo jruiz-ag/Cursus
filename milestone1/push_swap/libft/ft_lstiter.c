@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42malaga.com>         +#+  +:+       +#+        */
+/*   By: jruiz-ag <jruiz-ag@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 19:24:11 by lupin             #+#    #+#             */
-/*   Updated: 2026/04/20 19:24:12 by lupin            ###   ########.fr       */
+/*   Created: 2026/04/28 15:06:20 by jruiz-ag          #+#    #+#             */
+/*   Updated: 2026/04/28 15:29:21 by jruiz-ag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
+	if (!lst || !f)
+		return ;
 	while (lst)
 	{
 		f(lst->content);
@@ -21,34 +23,40 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 	}
 }
 
-/*void	ft_custom(void *s)
+/*
+void del (void *p)
 {
-	*(char *)s = 'A';
+	free(p);
 }
 
-int	main(void)
+void	f(void *content)
 {
-	t_list	*lst;
-	t_list	*node_1;
-	char	a[] = "Hola";
-	char	b[] = "que";
-	char	c[] = "tal";
-	char	d[] = "?";
+	((char *)content)[0] = 'C';
+}
+#include <stdio.h>
+int main()
+{
+	t_list *n1 = ft_lstnew(ft_strdup("Initial Node"));
+	t_list *n2 = ft_lstnew(ft_strdup("Second Node"));
+	t_list *n3 = ft_lstnew(ft_strdup("Third Node - Insert"));
+	t_list *aux;
+	ft_lstadd_back(&n1, n2);
+	ft_lstadd_back(&n1, n3);
 
-	lst = ft_lstnew(d);
-	node_1 = ft_lstnew(c);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(b);
-	ft_lstadd_front(&lst, node_1);
-	node_1 = ft_lstnew(a);
-	ft_lstadd_front(&lst, node_1);
-	ft_lstiter(lst, ft_custom);
-	printf("La direccion de la lista completa es: %p\n", lst);
-	while (lst)
+	aux = n1;
+	while (aux)
 	{
-		printf("El contenido de la lista 
-		completa es: %s\n", (char *)lst->content);
-		lst = lst->next;
+		printf("%s\n", (char *)aux->content);
+		aux = aux->next;
 	}
-	return (0);
-}*/
+	ft_lstiter(n1, f);
+
+	aux = n1;
+	while (aux)
+	{
+		printf("%s\n", (char *)aux->content);
+		aux = aux->next;
+	}
+	ft_lstclear(&n1, del);
+}
+*/
