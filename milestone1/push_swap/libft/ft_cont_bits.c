@@ -15,9 +15,9 @@ int	ft_cont_bits(int num)
 	int	cont;
 
 	cont = 0;
-	while (num > 0)
+	while (num != 0)
 	{
-		num %= 2;
+		num /= 2;
 		++cont;
 	}
 	return (cont);
