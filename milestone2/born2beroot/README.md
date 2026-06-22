@@ -16,25 +16,14 @@ Dado que se trata de una máquina virtual, debe importarse y ejecutarse a travé
 Para conectarte a la máquina desde tu sistema anfitrión (host) vía SSH:
 
 ```bash
-ssh [tu_login]@localhost -p 4242
+ssh jruiz-ag@localhost -p 4242
 ```
 (Nota: El inicio de sesión como root a través de SSH está deshabilitado por razones de seguridad).
 
 ### Verificación de la Firma de la VM
 Durante la evaluación, la firma del disco de la máquina virtual se comparará con la del archivo signature.txt proporcionado en el repositorio. No inicies la máquina normalmente antes de la evaluación, ya que esto alterará la firma (usa snapshots si necesitas probarla). 
 Para comprobar la firma:
-* Linux/Windows: sha1sum [ruta_al_disco].vdi
-* Mac/macOS: shasum [ruta_al_disco].vdi
-
-### Script de Monitorización
-El script monitoring.sh se ejecuta automáticamente cada 10 minutos usando cron. Para comprobar la configuración de cron:
-```bash
-sudo crontab -l
-```
-Para detener el script temporalmente sin modificarlo, puedes detener el servicio cron:
-```bash
-sudo systemctl stop cron
-```
+* Linux: sha1sum [ruta_al_disco].vdi
 
 ---
 
@@ -97,6 +86,4 @@ Las siguientes comparaciones cubren las preguntas teóricas principales que se h
 * Conceptos Básicos de UFW (https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 
 ### Declaración de Uso de IA
-De acuerdo con las directrices de IA de 42, las herramientas de IA se utilizaron de manera consciente durante este proyecto.
-* ¿Para qué se utilizó la IA? La IA se utilizó principalmente como tutor para explicar conceptos complejos (ej. "Explica cómo funciona LVM como si tuviera 5 años") y para aclarar las diferencias entre apt y aptitude.
-* ¿Para qué NO se utilizó la IA? La IA no se utilizó para generar el script de bash (monitoring.sh), escribir archivos de configuración, ni para omitir el proceso de instalación manual. Todos los comandos y configuraciones se escribieron y probaron manualmente para construir una base de conocimiento genuina.
+De acuerdo con las directrices de IA de 42, las herramientas de IA se utilizaron de manera consciente durante este proyecto. Principalmente para la aclaración de conceptos y fundamentos de administración de sistemas.
