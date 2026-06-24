@@ -7,13 +7,11 @@ class Plant:
         print("Created: ", end="")
         self.show()
 
-    def age(self) -> None:
-        self.age_days += 1
+    def age(self, days: int = 1) -> None:
+        self.age_days += days
 
-    def grow(self) -> float:
-        change = 0.8
+    def grow(self, change: float = 0.8) -> float:
         self.height += change
-        self.age()
         return (change)
 
     def track_week(self) -> None:
