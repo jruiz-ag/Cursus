@@ -16,7 +16,7 @@ def main() -> None:
     second: list = [elm for elm in init if elm.capitalize() == elm]
     print(f"New list of capitalized names only {second}")
 
-    third: dict = {key.capitalize(): random.randint(50, 910) for key in first}
+    third: dict = {key: random.randint(50, 910) for key in first}
     sum: int = 0
     for elm in third:
         sum += third[elm]

@@ -24,7 +24,7 @@ def show_script(valids: dict) -> None:
         if ((valids[item] < min) or (min == -1)):
             min = valids[item]
             str_min = item
-    print(f"Item most abundant: {str_min} with quantity {min}")
+    print(f"Item least abundant: {str_min} with quantity {min}")
 
 
 def main() -> None:
@@ -53,9 +53,12 @@ def main() -> None:
                     key: str = key_value[0].strip()
                     val: int = int(key_value[1].strip())
                     valids.update({key: val})
-        show_script(valids)
-        valids.update({"magic_item": 1})
-        print(f"Updated inventory: {valids}")
+        if (len(valids) <= 0):
+            print("No valid items provided")
+        else:
+            show_script(valids)
+            valids.update({"magic_item": 1})
+            print(f"Updated inventory: {valids}")
 
 
 if __name__ == "__main__":

@@ -9,6 +9,12 @@ def get_player_pos() -> tuple:
             c3d = input("Enter new coordinates as float in format 'x,y,z': ")
             values: list = c3d.split(",")
             values[0], values[1], values[2]
+            try:
+                values[3]
+            except IndexError:
+                pass
+            else:
+                raise IndexError
             trying: str = values[0].strip()
             num_1 = float(trying)
             trying = values[1].strip()
