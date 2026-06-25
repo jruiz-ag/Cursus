@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 def show_statistics(plant: "Plant") -> None:
     plant.count.show()
 

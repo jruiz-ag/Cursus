@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 class Plant:
     def __init__(self, name: str, height: float, age_days: int) -> None:
         if (height < 0 or age_days < 0):

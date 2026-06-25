@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 def ft_seed_inventory(seed_type: str, quantity: int, unit: str) -> None:
     if (unit != "packets" and unit != "grams" and unit != "area"):
         print("Unknown unit type")
