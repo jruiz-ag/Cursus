@@ -15,7 +15,7 @@ def analysis(list_scores: list[int]) -> None:
 def main() -> None:
     error_msg: str = "No scores provided. Usage: python3"
     error_msg += " ft_score_analytics.py <score1> <score2> ..."
-    list_scores: list[int] = list()
+    list_scores: list[int] = []
 
     print("=== Player Score Analytics ===")
     if (len(sys.argv)) <= 1:
