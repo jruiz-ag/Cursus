@@ -14,7 +14,7 @@ def main() -> None:
     print(f"New list with all names capitalized: {first}")
 
     second: list = [elm for elm in init if elm.capitalize() == elm]
-    print(f"New list of capitalized names only {second}")
+    print(f"New list of capitalized names only: {second}")
 
     third: dict = {key: random.randint(50, 910) for key in first}
     sum: int = 0
