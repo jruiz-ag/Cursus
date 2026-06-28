@@ -4,21 +4,8 @@ import sys
 import typing
 
 
-def zeros(cont: int) -> str:
-    len_int: int = 0
-    while (cont > 0):
-        len_int += 1
-        cont //= 10
-    num_zeros = 3 - len_int
-    if (num_zeros > 0):
-        return ("0" * num_zeros)
-    return ("")
-
-
 def first_part(file: typing.IO) -> list:
     transform_data: list = []
-    print("=== Cyber Archives Recovery & Preservation ===")
-    print(f"Accesing file '{sys.argv[1]}'")
 
     print("---\n")
     text: str = file.read()
@@ -35,8 +22,10 @@ def main() -> None:
         print("Usage: ft_ancient_text.py <file>")
         return
 
-    file: typing.IO = open(sys.argv[1], "r")
+    print("=== Cyber Archives Recovery & Preservation ===")
+    print(f"Accesing file '{sys.argv[1]}'")
     try:
+        file: typing.IO = open(sys.argv[1], "r")
         transform_data: list = first_part(file)
     except (FileNotFoundError, PermissionError) as ex:
         print(f"Error opening file '{sys.argv[1]}': {ex}")
@@ -59,7 +48,9 @@ def main() -> None:
         print(f"Saving data to '{dest_file}'")
         file = open(dest_file, "w")
         for line in transform_data:
-            file.write(f"{line}\n")
+            file.write(f"{line}")
+            if (line != transform_data[-1]):
+                file.write("\n")
     except (FileNotFoundError, PermissionError) as ex:
         print(f"Error opening file '{sys.argv[1]}': {ex}")
     else:
