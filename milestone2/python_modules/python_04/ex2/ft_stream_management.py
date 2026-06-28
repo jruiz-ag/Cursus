@@ -9,11 +9,12 @@ def first_part(file: typing.IO) -> list:
 
     print("---\n")
     text: str = file.read()
-    cont: int = 1
     for line in text.split("\n"):
         print(line)
-        transform_data.append(f"{line}#")
-        cont += 1
+        if (len(line) != 0):
+            transform_data.append(f"{line}#")
+        else:
+            transform_data.append(f"{line}")
     return (transform_data)
 
 
@@ -38,7 +39,7 @@ def main() -> None:
     print("---\n", file=sys.stdout)
 
     print('\n'.join(transform_data), file=sys.stdout)
-    print("\n---", file=sys.stdout)
+    print("---", file=sys.stdout)
 
     print("Enter new file name (or empty): ", end="", file=sys.stdout)
     sys.stdout.flush()
