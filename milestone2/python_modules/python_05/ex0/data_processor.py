@@ -136,7 +136,7 @@ def stage_2() -> None:
     list_1: list = ["Hello", "Nexus", "World"]
     print(f" Processing data: {list_1}")
     text_processor.ingest(list_1)
-    print(" Extracting 1 values...")
+    print(" Extracting 1 value...")
     tuple_1: tuple = text_processor.output()
     print(f" Text value {tuple_1[0]}: {tuple_1[1]}")
 
