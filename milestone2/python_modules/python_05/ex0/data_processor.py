@@ -156,7 +156,7 @@ def stage_3() -> None:
     log_processor.ingest(list_1)
     for _ in range(2):
         tuple_1: tuple = log_processor.output()
-        print(f" Text value {tuple_1[0]}: {tuple_1[1]}")
+        print(f" Log entry {tuple_1[0]}: {tuple_1[1]}")
 
 
 def main() -> None:
