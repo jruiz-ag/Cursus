@@ -20,7 +20,7 @@ def first_part(file: typing.IO) -> list:
 
 def main() -> None:
     if (len(sys.argv) != 2):
-        print("Usage: ft_ancient_text.py <file>", file=sys.stdout)
+        print("Usage: ft_stream_management.py <file>", file=sys.stdout)
         return
 
     print("=== Cyber Archives Recovery & Preservation ===", file=sys.stdout)
