@@ -40,7 +40,7 @@ def main() -> None:
     print('\n'.join(transform_data))
     print("---")
 
-    print("Enter new file name (or empty): ")
+    print("Enter new file name (or empty): ", end="")
     dest_file: str = input()
     if (len(dest_file.strip()) == 0):
         print("Not saving data.")
