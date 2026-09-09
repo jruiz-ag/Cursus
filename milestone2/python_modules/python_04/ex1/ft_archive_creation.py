@@ -48,9 +48,12 @@ def main() -> None:
     try:
         print(f"Saving data to '{dest_file}'")
         file = open(dest_file, "w")
+        max_line = len(transform_data)
+        cont_line = 0
         for line in transform_data:
+            cont_line += 1
             file.write(f"{line}")
-            if (line != transform_data[-1]):
+            if (cont_line != max_line):
                 file.write("\n")
     except (FileNotFoundError, PermissionError) as ex:
         print(f"Error opening file '{sys.argv[1]}': {ex}")
