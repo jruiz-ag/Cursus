@@ -24,7 +24,7 @@ def main() -> None:
         return
 
     print("=== Cyber Archives Recovery & Preservation ===", file=sys.stdout)
-    print(f"Accesing file '{sys.argv[1]}'", file=sys.stdout)
+    print(f"Accessing file '{sys.argv[1]}'", file=sys.stdout)
     try:
         file: typing.IO = open(sys.argv[1], "r")
         transform_data: list = first_part(file)

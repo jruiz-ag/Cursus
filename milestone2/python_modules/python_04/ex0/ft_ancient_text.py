@@ -10,7 +10,7 @@ def main() -> None:
         return
 
     print("=== Cyber Archives Recovery ===")
-    print(f"Accesing file '{sys.argv[1]}'")
+    print(f"Accessing file '{sys.argv[1]}'")
     try:
         file: typing.IO = open(sys.argv[1], "r")
         print("---\n")
