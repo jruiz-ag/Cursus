@@ -57,7 +57,7 @@ def main() -> None:
             if (cont_line != max_line):
                 file.write("\n")
     except (FileNotFoundError, PermissionError) as ex:
-        print(f"Error opening file '{sys.argv[1]}': {ex}")
+        print(f"Error opening file '{dest_file}': {ex}")
     else:
         print(f"Data saved in file '{dest_file}'")
 

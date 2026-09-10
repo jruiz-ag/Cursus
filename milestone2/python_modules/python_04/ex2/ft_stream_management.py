@@ -60,7 +60,7 @@ def main() -> None:
                 file.write("\n")
     except (FileNotFoundError, PermissionError) as ex:
         print("[STDERR] Error opening file ", end="", file=sys.stderr)
-        print(f"'{sys.argv[1]}': {ex}", file=sys.stderr)
+        print(f"'{dest_file}': {ex}", file=sys.stderr)
         print("Data not saved.", file=sys.stdout)
     else:
         print(f"Data saved in file '{dest_file}'", file=sys.stdout)
