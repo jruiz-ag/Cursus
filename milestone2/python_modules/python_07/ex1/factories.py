@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.10
 
-from ex0.factories import CreatureFactory
+from ex0 import CreatureFactory
 from ex1.healing import Sproutling, Bloomelle
 from ex1.transforming import Shiftling, Morphagon
 

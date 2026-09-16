@@ -1,34 +1,45 @@
 #!/usr/bin/env python3.10
 
-from ex0 import FlameFactory, AquaFactory
+from ex0 import CreatureFactory, FlameFactory, AquaFactory
 
 
-def main() -> None:
+def verify_factory(factory: CreatureFactory) -> None:
     print("Testing factory")
-    flame_factory = FlameFactory()
-    first_creature = flame_factory.create_base()
+    first_creature = factory.create_base()
     print(first_creature.describe())
     print(first_creature.attack())
 
-    first_evolved = flame_factory.create_evolved()
+    first_evolved = factory.create_evolved()
     print(first_evolved.describe())
     print(first_evolved.attack())
 
-    print("\nTesting factory")
-    aqua_factory = AquaFactory()
-    second_creature = aqua_factory.create_base()
-    print(second_creature.describe())
-    print(second_creature.attack())
+    print()
 
-    second_evolved = aqua_factory.create_evolved()
-    print(second_evolved.describe())
-    print(second_evolved.attack())
 
-    print("\nTesting battle")
+def make_fight(factory1: FlameFactory,
+               factory2: AquaFactory) -> None:
+    first_creature = factory1.create_base()
+    second_creature = factory2.create_base()
+
+    print("Testing battle")
     print(first_creature.describe())
+    print(" vs.")
     print(second_creature.describe())
+    print(" fight!")
     print(first_creature.attack())
     print(second_creature.attack())
+
+    print()
+
+
+def main() -> None:
+    flame_factory = FlameFactory()
+    verify_factory(flame_factory)
+
+    aqua_factory = AquaFactory()
+    verify_factory(aqua_factory)
+
+    make_fight(flame_factory, aqua_factory)
 
 
 if __name__ == "__main__":
