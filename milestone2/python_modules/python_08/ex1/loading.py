@@ -1,21 +1,45 @@
 import importlib.util
 import importlib.metadata
+from typing import Any
 
 
-def show_fault() -> None:
-    print("You need to install the required modules")
+def generate(np: Any, pd: Any, requests: Any, plt: Any) -> None:
+    print('Analyzing Matrix data...')
+    data_points = np.random.randn(1000)
+    df = pd.DataFrame(data_points, columns=['Data'])
+    print('Processing 1000 data points...')
+
+    df['Time'] = np.arange(len(df))
+
+    print('Generating visualization...\n')
+    plt.figure(figsize=(10, 6))
+    plt.plot(df['Time'], df['Data'], color='green', linewidth=0.4)
+
+    print("Analysis complete!")
+    plt.savefig('matrix_analysis.png')
+    print("Results saved to: matrix_analysis.png")
 
 
 def validate_modules() -> bool:
     all_good: bool = True
-    to_find: list = ["pandas", "numpy", "requests", "matplotlib"]
-    for module in to_find:
+    to_find: list[tuple[str, str]] = [("pandas", "2.1.0"),
+                                      ("numpy", "1.25.0"),
+                                      ("requests", "2.31.0"),
+                                      ("matplotlib", "3.7.2")]
+    for (module, exact_vers) in to_find:
         found = importlib.util.find_spec(module)
         if found:
             try:
                 vers = importlib.metadata.version(module)
+                if (vers != exact_vers):
+                    raise ValueError
             except importlib.metadata.PackageNotFoundError:
                 vers = "unknown version"
+            except ValueError:
+                print(f"[KO] {module} ({vers}) - not valid version", end="")
+                print(f" must be {exact_vers}")
+                all_good = False
+                continue
             print(f"[OK] {module} ({vers}) - ", end="")
             if (module == "pandas"):
                 print("Data manipulation ready")
@@ -35,14 +59,17 @@ def validate_modules() -> bool:
 def main() -> None:
     print("LOADING STATUS: Loading programs...\n")
     if not (validate_modules()):
-        show_fault()
-        return    
-    print("Analyzing Matrix data...")
-    print("Processing 1000 data points...")
-    print("Generating visualization...\n")
-    print("Analysis complete!")
-    print("Results saved to: matrix_analysis.png")
-    
+        print("You need to install the required modules.")
+        print(" -> With poetry: <poetry install>")
+        print(" -> With pip: <pip install -r requirements.txt>.")
+        print("Then try again.")
+        return
+    numpy: Any = importlib.import_module('numpy')
+    pandas: Any = importlib.import_module('pandas')
+    requests: Any = importlib.import_module('requests')
+    matplotlib_pyplot: Any = importlib.import_module('matplotlib.pyplot')
+    generate(numpy, pandas, requests, matplotlib_pyplot)
+
 
 if __name__ == "__main__":
     main()
