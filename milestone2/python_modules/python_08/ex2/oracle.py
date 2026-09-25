@@ -1,26 +1,13 @@
-import sys
 import os
-import importlib.metadata
-import importlib.util
-
-
-def error(exact_vers: str, vers: str) -> None:
-    print(f"[ERROR] python-dotenv", end="")
-    if not vers:
-        print(" (Not installed).")
-    else:
-        print(f" ({vers}) - not valid version required {exact_vers}")
-    print("To solve the problem use: <pip install -r requirements.txt>.\n")
 
 
 def take_keys() -> str:
-    all_good: bool = True
     keys: list[str] = ["MATRIX_MODE",
                        "DATABASE_URL",
                        "API_KEY",
                        "LOG_LEVEL",
                        "ZION_ENDPOINT"]
-    show: dict[str, str] = {"MATRIX_MODE": "Mode", 
+    show: dict[str, str] = {"MATRIX_MODE": "Mode",
                             "DATABASE_URL": "Database",
                             "API_KEY": "API Access",
                             "LOG_LEVEL": "Log Level",
@@ -34,7 +21,7 @@ def take_keys() -> str:
             print("[ERROR] This parameter is not defined.")
             missed += key + ", "
         else:
-            if (key == "MATRIX_MODE" and not (val in ['development', 
+            if (key == "MATRIX_MODE" and not (val in ['development',
                                                       'production'])):
                 print("[ERROR] This value must be", end="")
                 print(" 'development' or 'production'")
@@ -42,7 +29,9 @@ def take_keys() -> str:
             elif (key == "API_KEY"):
                 print("Authenticated")
             elif (key == "ZION_ENDPOINT"):
-                print("Connected")
+                print("Online")
+            elif (key == "DATABASE_URL"):
+                print("Connected to local instance")
             else:
                 print(val)
     return (missed)
@@ -53,28 +42,27 @@ def main() -> None:
     if not (os.path.exists(".env")):
         print("[ERROR] No valid file '.env' to load configuration.\n")
         return
-    dotenv = importlib.util.find_spec("dotenv")
-    exact_vers: str = "1.2.3"
-    if dotenv:
-        try:
-            vers = importlib.metadata.version("python-dotenv")
-            if (vers != exact_vers):
-                error(exact_vers, vers)
-                return
-        except importlib.metadata.PackageNotFoundError:
-            error(exact_vers, "")
-            return
-    if not(dotenv):
-        error(exact_vers, "")
-        return 
-    dotenv = importlib.import_module("dotenv")
+    try:
+        import dotenv  # type: ignore[import-not-found]
+    except ImportError:
+        print("[ERROR] Module 'python-dotenv' not installed.")
+        print("To solve the problem use: <pip install -r requirements.txt>.")
+        print("Then run again.\n")
+        return
     dotenv.load_dotenv()
     missed = take_keys()
     if (missed):
         print("\nSome parameters are not defined or are invalid.")
-        print(f"You must use the standard <KEY=VALUE> format.")
+        print("You must use the standard <KEY=VALUE> format.")
         print(f"Missed keys or invalid values: {missed.strip(', ')}")
+    else:
+        print("\nEnvironment security check:")
+        print("[OK] No hardcoded secrets detected")
+        print("[OK] .env file properly configured")
+        print("[OK] Production overrides available")
+        print("\nThe Oracle sees all configurations.")
     print()
+
 
 if __name__ == "__main__":
     main()

@@ -3,9 +3,29 @@ import importlib.metadata
 from typing import Any
 
 
+def fetch_matrix_data(requests: Any) -> list[float]:
+    print("Fetching live Matrix data from external API...")
+    url = "https://api.coindesk.com/v1/bpi/currentprice.json"
+
+    try:
+        response = requests.get(url, timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        rate = data["bpi"]["USD"]["rate_float"]
+        return [rate]
+    except Exception:
+        return []
+
+
 def generate(np: Any, pd: Any, requests: Any, plt: Any) -> None:
     print('Analyzing Matrix data...')
+
+    api_data = fetch_matrix_data(requests)
     data_points = np.random.randn(1000)
+
+    if api_data:
+        data_points = data_points + (api_data[0] / 10000)
+
     df = pd.DataFrame(data_points, columns=['Data'])
     print('Processing 1000 data points...')
 

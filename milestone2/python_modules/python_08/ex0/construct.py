@@ -21,19 +21,23 @@ def show_venv() -> None:
     print(f"Current Python: {sys.executable}")
     print(f"Virtual Environment: {os.path.basename(sys.prefix)}")
     print(f"Environment Path: {sys.prefix}\n")
-    print("SUCCESS: You're in an insolated environment!")
+    print("SUCCESS: You're in an isolated environment!")
     print("Safe to install packages without affecting")
     print("the global system.\n")
     print("Package installation path:")
-    print(site.getsitepackages()[0])
+    site_packages = site.getsitepackages()
+    alternative_site = site.getusersitepackages()
+    pkg_path = site_packages[0] if site_packages else alternative_site
+    print(pkg_path)
 
 
 def main() -> None:
     print()
-    if (sys.prefix != sys.base_prefix):
+    if sys.prefix != sys.base_prefix:
         show_venv()
     else:
         show_global()
+    print()
 
 
 if __name__ == "__main__":
