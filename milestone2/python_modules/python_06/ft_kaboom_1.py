@@ -1,11 +1,11 @@
 #!/usr/bin/env python3.10
 
-import alchemy.grimoire.dark_spellbook
-
-
 def main() -> None:
     print("=== Kaboom 1 ===")
-    print("Using grimoire module directly")
+    print("Access to alchemy/grimoire/dark_spellbook.py directly")
+    print("Test import now - THIS WILL RAISE AN UNCAUGHT EXCEPTION")
+
+    import alchemy.grimoire.dark_spellbook
 
     elms: str = "Bats, eyes and frogs"
     name: str = "Fantasy"
