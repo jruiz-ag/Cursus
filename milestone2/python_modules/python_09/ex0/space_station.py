@@ -84,7 +84,7 @@ def second_valid() -> None:
     station_2 = SpaceStation(station_id="ISS002",
                              name="European Space Station",
                              crew_size=9,
-                             power_level="10.1",
+                             power_level="10.1",  # type: ignore[arg-type]
                              oxygen_level=1.01,
                              last_maintenance=date(2026, 1, 25),
                              is_operational=False,
@@ -96,7 +96,7 @@ def second_valid() -> None:
 def second_error() -> None:
     print("Expected validation error:")
     try:
-        SpaceStation(station_id=2,
+        SpaceStation(station_id=2,  # type: ignore[arg-type]
                      name="International Space Station",
                      crew_size=19,
                      power_level=85,
