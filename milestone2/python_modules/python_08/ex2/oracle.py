@@ -39,9 +39,6 @@ def take_keys() -> str:
 
 def main() -> None:
     print("\nORACLE STATUS: Reading the matrix...\n")
-    if not (os.path.exists(".env")):
-        print("[ERROR] No valid file '.env' to load configuration.\n")
-        return
     try:
         import dotenv  # type: ignore[import-not-found]
     except ImportError:
