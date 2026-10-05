@@ -4,7 +4,6 @@ from typing import Any
 
 
 def fetch_matrix_data(requests: Any) -> list[float]:
-    print("Fetching live Matrix data from external API...")
     url = "https://api.coindesk.com/v1/bpi/currentprice.json"
 
     try:
