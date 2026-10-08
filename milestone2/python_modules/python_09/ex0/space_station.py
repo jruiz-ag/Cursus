@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 from pydantic import BaseModel, Field  # type: ignore[import-not-found]
 from pydantic import ValidationError  # type: ignore[import-not-found]
 from datetime import date
@@ -54,57 +56,94 @@ def show_station(station: SpaceStation) -> None:
 def first_valid() -> None:
     print("=" * 35)
     print("Valid station created:")
-    station_1 = SpaceStation(station_id="ISS001",
-                             name="International Space Station",
-                             crew_size=6,
-                             power_level=85.5,
-                             oxygen_level=92.3,
-                             last_maintenance=date(2026, 9, 25))
-    show_station(station_1)
+    station = SpaceStation(station_id="ISS001",
+                           name="International Space Station",
+                           crew_size=6,
+                           power_level=85.5,
+                           oxygen_level=92.3,
+                           last_maintenance=date(2026, 9, 25))
+    show_station(station)
     print("=" * 35)
 
 
 def first_error() -> None:
+    """Invalid because 'crew_size' must be a maximum of 20"""
     print("Expected validation error:")
     try:
         SpaceStation(station_id="ISS001",
                      name="International Space Station",
-                     crew_size=21,
+                     crew_size=26,
                      power_level=85.5,
                      oxygen_level=92.3,
-                     last_maintenance=date(2026, 9, 25),
-                     is_operational=False)
+                     last_maintenance=date(2026, 9, 25))
     except ValidationError as ex:
         print(ex.errors()[0]["msg"])
+    print("=" * 35, "\n")
 
 
 def second_valid() -> None:
     print("=" * 35)
     print("Second valid station created:")
-    station_2 = SpaceStation(station_id="ISS002",
-                             name="European Space Station",
-                             crew_size=9,
-                             power_level="10.1",  # type: ignore[arg-type]
-                             oxygen_level=1.01,
-                             last_maintenance=date(2026, 1, 25),
-                             is_operational=False,
-                             notes="This station is deprecated")
-    show_station(station_2)
+    station = SpaceStation(station_id="ISS002",
+                           name="European Space Station",
+                           crew_size=19,
+                           power_level=85,
+                           oxygen_level=92.3,
+                           last_maintenance=date(2026, 1, 25),
+                           is_operational=False,
+                           notes="This station is deprecated")
+    show_station(station)
     print("=" * 35)
 
 
 def second_error() -> None:
+    """Invalid because 'station_id' must be a string"""
     print("Expected validation error:")
     try:
         SpaceStation(station_id=2,  # type: ignore[arg-type]
-                     name="International Space Station",
+                     name="European Space Station",
                      crew_size=19,
                      power_level=85,
                      oxygen_level=92.3,
-                     last_maintenance=date(2026, 9, 25),
-                     is_operational=True)
+                     last_maintenance=date(2026, 1, 25),
+                     is_operational=False,
+                     notes="This station is deprecated")
     except ValidationError as ex:
         print(ex.errors()[0]["msg"])
+    print("=" * 35, "\n")
+
+
+def third_valid() -> None:
+    print("=" * 35)
+    print("Third valid station created:")
+    station = SpaceStation(station_id="ISS002",
+                           name="European Space Station",
+                           crew_size=19,
+                           power_level=85,
+                           oxygen_level="23",  # type: ignore[arg-type]
+                           last_maintenance=date(2026, 1, 25),
+                           is_operational=False,
+                           notes="This station is deprecated")
+    show_station(station)
+    print("=" * 35, "\n")
+
+
+def third_error() -> None:
+    """Invalid because 'oxygen_level' must be a number"""
+    print("=" * 35)
+    print("Expected validation error:")
+    try:
+        SpaceStation(station_id="ISS002",
+                     name="European Space Station",
+                     crew_size=19,
+                     power_level=85,
+                     oxygen_level="bc",  # type: ignore[arg-type]
+                     last_maintenance=date(2026, 1, 25),
+                     is_operational=False,
+                     notes="This station is deprecated")
+    except ValidationError as ex:
+        print(ex.errors()[0]["msg"])
+    print("=" * 35, "\n")
 
 
 def main() -> None:
@@ -112,6 +151,8 @@ def main() -> None:
     first_error()
     second_valid()
     second_error()
+    third_valid()
+    third_error()
 
 
 if __name__ == "__main__":
