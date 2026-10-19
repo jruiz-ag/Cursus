@@ -56,31 +56,33 @@ class AlienContact(BaseModel):
                                   max_length=500,
                                   description="Which message was received")
 
-    is_verified: bool = Field(default=True,
+    is_verified: bool = Field(default=False,
                               description="Control the validate"
                                           "of the contact")
 
     @model_validator(mode='after')
-    def rules(self):
+    def rules(self) -> 'AlienContact':
+
         if not (self.contact_id.startswith('AC')):
-            raise ValueError("Contact ID must start with 'AC'.")
+            raise ValueError("Contact ID must start with 'AC'")
+
         if (self.contact_type == ContactType.PHYSICAL
            and not (self.is_verified)):
-            raise ValueError("Physical contact must be verified.")
+            raise ValueError("Physical contact must be verified")
+
         if (self.contact_type == ContactType.TELEPATHIC
            and (self.witness_count < 3)):
-            raise ValueError("Telepathic contact must have at least"
-                             " 3 witnesses.")
+            raise ValueError("Telepathic contact requires at least"
+                             " 3 witnesses")
+
         if (self.signal_strength > 7 and not (self.message_received)):
-            raise ValueError("Strong signals (> 7) must have messages.")
+            raise ValueError("Strong signals (> 7) must have messages")
+
         return self
 
 
 def show(contact: AlienContact) -> None:
-    if contact.is_verified:
-        print("Valid contact report:")
-    else:
-        print("Unvalid contact report:")
+    print("Valid contact report:")
     print(f"ID: {contact.contact_id}")
     print(f"Type: {contact.contact_type.value}")
     print(f"Location: {contact.location}")
@@ -102,27 +104,28 @@ def valid_1() -> None:
                            duration_minutes=45,
                            witness_count=5,
                            message_received="Greetings from Zera"
-                                            " Reticuli")
+                                            " Reticuli",
+                           is_verified=True)
     show(contact)
 
 
 def error_1() -> None:
-    """Invalid because of not starting contact_id with 'AC'"""
+    """Invalid because is a telepathic contact but have less of 3 witness"""
     print("=" * 38)
+    print("Expected validation error:")
     try:
-        contact = AlienContact(contact_id="BC_2024_001",
+        contact = AlienContact(contact_id="AC_2024_001",
                                timestamp=datetime(2025, 9, 30),
                                location="Area 51, Nevada",
-                               contact_type=ContactType.RADIO,
+                               contact_type=ContactType.TELEPATHIC,
                                signal_strength=8.5,
                                duration_minutes=45,
-                               witness_count=5,
+                               witness_count=2,
                                message_received="Greetings from Zera"
-                                                " Reticuli")
+                                                " Reticuli",
+                               is_verified=True)
     except ValidationError as ex:
-        print(ex.errors()[0]["msg"])
-    except ValueError as ex:
-        print(ex)
+        print(ex.errors()[0].get("ctx", {}).get("error"))
     else:
         show(contact)
     print("=" * 38, "\n")
@@ -146,6 +149,7 @@ def valid_2() -> None:
 def error_2() -> None:
     """Invalid because of being a physical contact but not verified"""
     print("=" * 38)
+    print("Expected validation error:")
     try:
         contact = AlienContact(contact_id="AC_2024_001",
                                timestamp=datetime(2025, 9, 30),
@@ -158,9 +162,7 @@ def error_2() -> None:
                                                 " Reticuli",
                                is_verified=False)
     except ValidationError as ex:
-        print(ex.errors()[0]["msg"])
-    except ValueError as ex:
-        print(ex)
+        print(ex.errors()[0].get("ctx", {}).get("error"))
     else:
         show(contact)
     print("=" * 38, "\n")
@@ -176,27 +178,28 @@ def valid_3() -> None:
                            duration_minutes=45,
                            witness_count=3,
                            message_received="Greetings from Zera"
-                                            " Reticuli")
+                                            " Reticuli",
+                           is_verified=True)
     show(contact)
 
 
 def error_3() -> None:
-    """Invalid because is a telepathic contact but have less of 3 witness"""
+    """Invalid because of not starting contact_id with 'AC'"""
     print("=" * 38)
+    print("Expected validation error:")
     try:
-        contact = AlienContact(contact_id="AC_2024_001",
+        contact = AlienContact(contact_id="BC_2024_001",
                                timestamp=datetime(2025, 9, 30),
                                location="Area 51, Nevada",
-                               contact_type=ContactType.TELEPATHIC,
+                               contact_type=ContactType.RADIO,
                                signal_strength=8.5,
                                duration_minutes=45,
-                               witness_count=2,
+                               witness_count=5,
                                message_received="Greetings from Zera"
-                                                " Reticuli")
+                                                " Reticuli",
+                               is_verified=True)
     except ValidationError as ex:
-        print(ex.errors()[0]["msg"])
-    except ValueError as ex:
-        print(ex)
+        print(ex.errors()[0].get("ctx", {}).get("error"))
     else:
         show(contact)
     print("=" * 38, "\n")
@@ -211,13 +214,15 @@ def valid_4() -> None:
                            signal_strength=8.5,
                            duration_minutes=45,
                            witness_count=5,
-                           message_received="A valid communication")
+                           message_received="A valid communication",
+                           is_verified=True)
     show(contact)
 
 
 def error_4() -> None:
     """Invalid because of being a strong signal (> 7) without message"""
     print("=" * 38)
+    print("Expected validation error:")
     try:
         contact = AlienContact(contact_id="AC_2024_001",
                                timestamp=datetime(2025, 9, 30),
@@ -225,17 +230,17 @@ def error_4() -> None:
                                contact_type=ContactType.TELEPATHIC,
                                signal_strength=8.5,
                                duration_minutes=45,
-                               witness_count=5)
+                               witness_count=5,
+                               is_verified=True)
     except ValidationError as ex:
-        print(ex.errors()[0]["msg"])
-    except ValueError as ex:
-        print(ex)
+        print(ex.errors()[0].get("ctx", {}).get("error"))
     else:
         show(contact)
     print("=" * 38, "\n")
 
 
 def main() -> None:
+    print("Alien Contact Log Validation")
     valid_1()
     error_1()
     valid_2()

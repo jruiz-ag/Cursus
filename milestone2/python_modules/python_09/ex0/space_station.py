@@ -2,7 +2,7 @@
 
 from pydantic import BaseModel, Field  # type: ignore[import-not-found]
 from pydantic import ValidationError  # type: ignore[import-not-found]
-from datetime import date
+from datetime import datetime
 
 
 class SpaceStation(BaseModel):
@@ -31,14 +31,16 @@ class SpaceStation(BaseModel):
                                 le=100.0,
                                 description="Level of oxygen in this station")
 
-    last_maintenance: date = Field(...,
-                                   description="Date of the last maintenance")
+    last_maintenance: datetime = Field(...,
+                                       description="Date of the"
+                                                   "last maintenance")
 
     is_operational: bool = Field(default=True,
                                  description="Indicate the valid state")
 
     notes: str = Field(default="",
-                       max_length=200)
+                       max_length=200,
+                       description="Optional extra information of station")
 
 
 def show_station(station: SpaceStation) -> None:
@@ -61,7 +63,7 @@ def first_valid() -> None:
                            crew_size=6,
                            power_level=85.5,
                            oxygen_level=92.3,
-                           last_maintenance=date(2026, 9, 25))
+                           last_maintenance=datetime(2026, 9, 25))
     show_station(station)
     print("=" * 35)
 
@@ -75,7 +77,7 @@ def first_error() -> None:
                      crew_size=26,
                      power_level=85.5,
                      oxygen_level=92.3,
-                     last_maintenance=date(2026, 9, 25))
+                     last_maintenance=datetime(2026, 9, 25))
     except ValidationError as ex:
         print(ex.errors()[0]["msg"])
     print("=" * 35, "\n")
@@ -83,13 +85,13 @@ def first_error() -> None:
 
 def second_valid() -> None:
     print("=" * 35)
-    print("Second valid station created:")
+    print("Valid station created:")
     station = SpaceStation(station_id="ISS002",
                            name="European Space Station",
                            crew_size=19,
                            power_level=85,
                            oxygen_level=92.3,
-                           last_maintenance=date(2026, 1, 25),
+                           last_maintenance=datetime(2026, 1, 25),
                            is_operational=False,
                            notes="This station is deprecated")
     show_station(station)
@@ -105,7 +107,7 @@ def second_error() -> None:
                      crew_size=19,
                      power_level=85,
                      oxygen_level=92.3,
-                     last_maintenance=date(2026, 1, 25),
+                     last_maintenance=datetime(2026, 1, 25),
                      is_operational=False,
                      notes="This station is deprecated")
     except ValidationError as ex:
@@ -115,17 +117,16 @@ def second_error() -> None:
 
 def third_valid() -> None:
     print("=" * 35)
-    print("Third valid station created:")
+    print("Valid station created:")
     station = SpaceStation(station_id="ISS002",
                            name="European Space Station",
                            crew_size=19,
                            power_level=85,
                            oxygen_level="23",  # type: ignore[arg-type]
-                           last_maintenance=date(2026, 1, 25),
+                           last_maintenance=datetime(2026, 1, 25),
                            is_operational=False,
                            notes="This station is deprecated")
     show_station(station)
-    print("=" * 35, "\n")
 
 
 def third_error() -> None:
@@ -138,7 +139,7 @@ def third_error() -> None:
                      crew_size=19,
                      power_level=85,
                      oxygen_level="bc",  # type: ignore[arg-type]
-                     last_maintenance=date(2026, 1, 25),
+                     last_maintenance=datetime(2026, 1, 25),
                      is_operational=False,
                      notes="This station is deprecated")
     except ValidationError as ex:
@@ -147,6 +148,7 @@ def third_error() -> None:
 
 
 def main() -> None:
+    print("Space Station Data Validation")
     first_valid()
     first_error()
     second_valid()
