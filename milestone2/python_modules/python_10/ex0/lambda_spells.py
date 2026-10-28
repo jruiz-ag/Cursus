@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     """ Sort the list in a descending way based on the 'power' field """
     return (sorted(artifacts, key=lambda x: x['power'],  reverse=True))

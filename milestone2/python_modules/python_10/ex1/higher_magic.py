@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 from collections.abc import Callable
 
 def spell(target: str, power: int) -> str:
