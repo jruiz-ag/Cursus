@@ -44,7 +44,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 <table>
   <tr>
     <td width="350" valign="middle" align="center">
-      <img src="imgs/ft_printf.png" width="30" alt="ft_printf"/>
+      <img src="imgs/ft_printf.png" width="330" alt="ft_printf"/>
     </td>
     <td valign="middle">
       <h3><a href="milestone1/ft_printf">ft_printf</a></h3>
