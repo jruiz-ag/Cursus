@@ -13,7 +13,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 
 <table>
   <tr>
-    <td width="200" valign="middle" align="center">
+    <td width="300" valign="middle" align="center">
       <img src="imgs/libft.png" width="200" alt="libft"/>
     </td>
     <td valign="middle">
@@ -29,7 +29,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 
 <table>
   <tr>
-    <td width="200" valign="middle" align="center">
+    <td width="300" valign="middle" align="center">
       <img src="imgs/get_next_line.png" width="200" alt="get_next_line"/>
     </td>
     <td valign="middle">
@@ -43,7 +43,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 
 <table>
   <tr>
-    <td width="200" valign="middle" align="center">
+    <td width="300" valign="middle" align="center">
       <img src="imgs/ft_printf.png" width="200" alt="ft_printf"/>
     </td>
     <td valign="middle">
@@ -57,7 +57,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 
 <table>
   <tr>
-    <td width="200" valign="middle" align="center">
+    <td width="300" valign="middle" align="center">
       <img src="imgs/push_swap.png" width="200" alt="push_swap"/>
     </td>
     <td valign="middle">
