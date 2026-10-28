@@ -14,7 +14,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 <table>
   <tr>
     <td width="350" valign="middle" align="center">
-      <img src="imgs/libft.png" width="330" alt="libft"/>
+      <img src="imgs/milestone0/libft.png" width="330" alt="libft"/>
     </td>
     <td valign="middle">
       <h3><a href="milestone0/libft">libft</a></h3>
@@ -30,7 +30,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 <table>
   <tr>
     <td width="350" valign="middle" align="center">
-      <img src="imgs/get_next_line.png" width="330" alt="get_next_line"/>
+      <img src="imgs/milestone1/get_next_line.png" width="330" alt="get_next_line"/>
     </td>
     <td valign="middle">
       <h3><a href="milestone1/get_next_line">get_next_line</a></h3>
@@ -44,7 +44,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 <table>
   <tr>
     <td width="350" valign="middle" align="center">
-      <img src="imgs/ft_printf.png" width="330" alt="ft_printf"/>
+      <img src="imgs/milestone1/ft_printf.png" width="330" alt="ft_printf"/>
     </td>
     <td valign="middle">
       <h3><a href="milestone1/ft_printf">ft_printf</a></h3>
@@ -58,7 +58,7 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 <table>
   <tr>
     <td width="350" valign="middle" align="center">
-      <img src="imgs/push_swap.png" width="330" alt="push_swap"/>
+      <img src="imgs/milestone1/push_swap.png" width="330" alt="push_swap"/>
     </td>
     <td valign="middle">
       <h3><a href="milestone1/push_swap">push_swap</a></h3>
