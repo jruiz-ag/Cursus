@@ -69,9 +69,54 @@ El Cursus Principal está organizado en anillos donde necesitas aprobar los proy
 
 ---
 
+## 🐍​ Milestone 2: Dominando Python y Virtualización
+
+<table>
+  <tr>
+    <td width="350" valign="middle" align="center">
+      <img src="imgs/milestone2/born2beroot.png" width="330" alt="get_next_line"/>
+    </td>
+    <td valign="middle">
+      <h3><a href="milestone2/born2beroot.png">born2beroot</a></h3>
+      <p>Virtualización en máquina usando los mínimos recursos. Configuración estricta de una máquina virtual Debian, particionado LVM, políticas de contraseñas, UFW y monitorización con un script en Bash.</p>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<table>
+  <tr>
+    <td width="350" valign="middle" align="center">
+      <img src="imgs/milestone2/python_modules.png" width="330" alt="ft_printf"/>
+    </td>
+    <td valign="middle">
+      <h3><a href="milestone2/python_modules">python_modules</a></h3>
+      <p>Iniciación al entorno de Python y gestión de entornos virtuales, paquetes y buenas prácticas en scripting y desarrollo modular.</p>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<table>
+  <tr>
+    <td width="350" valign="middle" align="center">
+      <img src="imgs/milestone2/a_maze_ing.png" width="330" alt="push_swap"/>
+    </td>
+    <td valign="middle">
+      <h3><a href="milestone2/a_maze_ing">a_maze_ing</a></h3>
+      <p>Proyecto enfocado en la generación y resolución de laberintos, profundizando en algoritmos de grafos y gestión eficiente de estructuras de datos.</p>
+    </td>
+  </tr>
+</table>
+
+---
+
+
 ## 🛠️ Tecnologías
-* **Lenguaje:** C (Norminette compliant)
-* **Entorno:** Sistema Unix / macOS
+* **Lenguaje:** C, Python, Bash
+* **Entorno:** Sistema Unix / macOS / VMs (Debian)
 
 ---
 *Nota: Este repositorio es parte de mi formación.*
