@@ -3,10 +3,11 @@
 import pytest
 from mazegen.maze import Maze
 from mazegen.builder import Builder
+from typing import Any
 
 
 @pytest.fixture
-def maze_settings() -> dict[str, object]:
+def maze_settings() -> dict[str, Any]:
     """Returns standard maze settings for testing builder logic."""
     return {
         "WIDTH": 10,
@@ -59,7 +60,7 @@ def test_pacman_mode_modifies_walls(
 
     builder_perfect.build(maze_perfect, perfect=True, delay=0.0)
     builder_imperfect.build(
-        maze_imperfect, perfect=False, delay=0.0, game_mode=1.0
+        maze_imperfect, perfect=False, delay=0.0, difficulty=1.0
     )
 
     assert maze_perfect.matrix != maze_imperfect.matrix
@@ -79,3 +80,18 @@ def test_builder_animation_callback(
 
     builder.build(maze, perfect=True, delay=0.0, animation=mock_callback)
     assert steps_count > 0
+
+    def test_builder_same_seed_produces_identical_mazes(
+        maze_settings: dict[str, object]
+    ) -> None:
+        """Test that using the same seed produces identical maze structures."""
+        maze_a = Maze(maze_settings)
+        maze_b = Maze(maze_settings)
+
+        builder_a = Builder(seed=42)
+        builder_b = Builder(seed=42)
+
+        builder_a.build(maze_a, perfect=True, delay=0.0)
+        builder_b.build(maze_b, perfect=True, delay=0.0)
+
+        assert maze_a.matrix == maze_b.matrix

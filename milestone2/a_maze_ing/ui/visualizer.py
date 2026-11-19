@@ -1,4 +1,10 @@
+"""
+Terminal ANSI Visualizer Module for Maze generation,
+play, and solution.
+"""
+
 import time
+
 from typing import Any
 
 # ANSI terminal colors
@@ -42,12 +48,12 @@ COLOR_PALETTES = [
      "\033[38;5;124m\033[48;5;226m \033[0m"),
 ]
 
-current_palette_idx = 0
+current_palette_index = 0
 PALETTE = COLOR_PALETTES[0]
 
 
 def _clean_delay(delay: Any) -> float:
-    """FIX 2: Garantiza que delay sea siempre un float valido y nunca None."""
+    """Ensures delay is a valid float >= 0.0."""
     if delay is None:
         return 0.0
     try:
@@ -58,12 +64,12 @@ def _clean_delay(delay: Any) -> float:
 
 def rotate_color() -> None:
     """Rotates the global wall and path colors to the next palette."""
-    global PALETTE, current_palette_idx
-    current_palette_idx = (current_palette_idx + 1) % len(COLOR_PALETTES)
-    PALETTE = COLOR_PALETTES[current_palette_idx]
+    global PALETTE, current_palette_index
+    current_palette_index = (current_palette_index + 1) % len(COLOR_PALETTES)
+    PALETTE = COLOR_PALETTES[current_palette_index]
 
 
-def _stamp_start_and_exit(grid: list[list[str]], maze: Any) -> None:
+def _stamp_entry_and_exit(grid: list[list[str]], maze: Any) -> None:
     """
     Stamps the ENTRY and EXIT with specific color
     markers on top of the grid.
@@ -105,7 +111,7 @@ def _build_base_grid(maze: Any) -> list[list[str]]:
                         c2 = grid_x + move_x
                         grid[c1][c2] = PALETTE[PATH_COLOR]
 
-    _stamp_start_and_exit(grid, maze)
+    _stamp_entry_and_exit(grid, maze)
     return grid
 
 
@@ -123,7 +129,7 @@ def _draw_grid(grid: list[list[str]]) -> None:
     print(f"exit: {PALETTE[EXT_COLOR] * 2}")
 
 
-def render_live(maze: Any, delay: Any = 0.0) -> None:
+def render_live(maze: Any, delay: float) -> None:
     """Renders only the current state of maze generation in real-time."""
     d_val = _clean_delay(delay)
     grid = _build_base_grid(maze)
@@ -132,7 +138,7 @@ def render_live(maze: Any, delay: Any = 0.0) -> None:
         time.sleep(d_val)
 
 
-def animate_solution(maze: Any, solution: str, delay: Any = 0.0) -> None:
+def animate_solution(maze: Any, solution: str, delay: float) -> None:
     """Animates the solution path step-by-step on top of the rendered maze."""
     d_val = _clean_delay(delay)
     grid = _build_base_grid(maze)
@@ -154,7 +160,7 @@ def animate_solution(maze: Any, solution: str, delay: Any = 0.0) -> None:
         if d_val > 0:
             time.sleep(d_val)
 
-    _stamp_start_and_exit(grid, maze)
+    _stamp_entry_and_exit(grid, maze)
     _draw_grid(grid)
 
 
@@ -166,7 +172,7 @@ def render_ascii(maze: Any, solution: str = "") -> None:
 
     global PALETTE
 
-    PALETTE = COLOR_PALETTES[current_palette_idx]
+    PALETTE = COLOR_PALETTES[current_palette_index]
     grid = _build_base_grid(maze)
     if solution:
         current_x, current_y = maze.entry
@@ -181,7 +187,7 @@ def render_ascii(maze: Any, solution: str = "") -> None:
 
         grid[current_y * 2 + 1][current_x * 2 + 1] = PALETTE[SOLUTION_COLOR]
 
-        _stamp_start_and_exit(grid, maze)
+        _stamp_entry_and_exit(grid, maze)
 
     _draw_grid(grid)
 

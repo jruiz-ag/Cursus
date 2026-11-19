@@ -1,15 +1,15 @@
-#!/usr/bin/env python3
-
 """
-Configuration parser and validator module for A-Maze-ing.
+This script receives a configuration file, validates it,
+and prepares the environment for maze generation.
 """
 
+import sys
 from enum import Enum
-import re
+
 from typing import Any
 
 
-class GameMode(float, Enum):
+class Difficulty(float, Enum):
     """
     Maze difficulty levels mapped to dead-end removal rates.
     """
@@ -21,165 +21,93 @@ class GameMode(float, Enum):
     INSANE = 0.1
 
 
-def parse_config(file_path: str) -> dict[str, Any]:
+def parse_val(val: str) -> Any:
     """
-    Reads and processes the configuration file in KEY=VALUE format.
-    Empty lines and comments starting with # are ignored.
-
-    Args:
-        file_path: Path to the configuration file.
-
-    Returns:
-        A dictionary containing the processed keys and values.
-
-    Raises:
-        FileNotFoundError: If the file does not exist.
-        ValueError: If there is a syntax error in the file.
+    Parse basic types and tuples of points.
     """
-    config_data: dict[str, Any] = {}
-    pattern = re.compile(r"^[a-zA-Z0-9._-]+$")
 
-    with open(file_path, mode="r", encoding="utf-8") as file:
-        for line_num, line in enumerate(file, 1):
-            line = line.strip()
+    if val == "TRUE":
+        return True
+    if val == "FALSE":
+        return False
 
-            if not line or line.startswith("#"):
-                continue
+    if "," in val:
+        parts = val.split(",")
 
-            if "=" not in line:
-                raise ValueError(
-                    f"Syntax error on line {line_num}: Expected 'KEY=VALUE'."
-                )
-            key, val = line.split("=", 1)
-            key = key.strip()
-            val = val.strip()
+        if len(parts) == 2:
+            try:
+                x = int(parts[0])
+                y = int(parts[1])
+                return (x, y)
+            except ValueError:
+                pass
 
-            if key in config_data:
-                raise ValueError(
-                    f"Error on line {line_num}: Duplicate key found '{key}'."
-                )
+        raise ValueError(f"Invalid tuple format: {val}")
 
-            if key in ("WIDTH", "HEIGHT", "SEED"):
-                try:
-                    config_data[key] = int(val)
-                except ValueError:
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"Invalid value for {key}."
-                    ) from None
+    try:
+        return int(val)
+    except ValueError:
+        pass
 
-            elif key in ("ENTRY", "EXIT"):
-                coords = val.split(",")
-                if len(coords) != 2:
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"Invalid coordinates for {key}."
-                    )
-                try:
-                    x = int(coords[0].strip())
-                    y = int(coords[1].strip())
-                except ValueError:
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"Invalid coordinates for {key}."
-                    ) from None
-                config_data[key] = (x, y)
+    try:
+        return float(val)
+    except ValueError:
+        pass
 
-            elif key == "OUTPUT_FILE":
-                if (
-                    not val
-                    or len(val.encode("utf-8")) > 255
-                    or not pattern.match(val)
+    return val
+
+
+def parse_config(path: str) -> dict[str, Any]:
+    """
+    Extract all of the keys from the config_file
+    and define them as the specific type.
+    """
+
+    config = {}
+
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            for num_line, line in enumerate(f, start=1):
+                clean_line = line.split('#')[0].strip()
+                if not clean_line:
+                    continue
+
+                if '=' not in clean_line:
+                    text = f"Syntax error in the line {num_line}:"
+                    print(f"{text} is missed '='", file=sys.stderr)
+                    sys.exit(1)
+
+                key, value = clean_line.split('=', 1)
+                key, value = key.strip(), value.strip()
+                if isinstance(value, str) and key in (
+                    "PERFECT", "DIFFICULTY", "ALGORITHM"
                 ):
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"Invalid character(s) or length for {key} '{val}'."
-                    )
-                config_data[key] = val
-
-            elif key in ("PERFECT", "LIVE_MODE"):
-                if val.lower() not in ("true", "false"):
-                    raise ValueError(
-                        f"Invalid value for {key} on line {line_num}: "
-                        f"expected 'True' or 'False'."
-                    )
-                config_data[key] = val.lower() == "true"
-
-            elif key == "GAME_MODE":
-                if val.upper() not in GameMode.__members__:
-                    raise ValueError(
-                        f"Invalid value for GAME_MODE on line {line_num}: "
-                        f"expected 'Easy', 'Medium', 'Hard' or 'Insane'."
-                    )
-                config_data[key] = GameMode[val.upper()]
-
-            elif key == "DELAY":
+                    value = value.upper()
+                if key in config:
+                    print("\033c", end="", flush=True)
+                    print(f"Error: Duplicate key '{key}' in the file"
+                          f" {path} found at line"
+                          f" {num_line}", file=sys.stderr)
+                    sys.exit(1)
                 try:
-                    config_data[key] = float(val)
-                except ValueError:
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"Invalid value for {key}."
-                    ) from None
+                    config[key] = parse_val(value)
+                except ValueError as e:
+                    text = f"Error in line {num_line} to '{key}'"
+                    print(f"{text}: {e}", file=sys.stderr)
+                    sys.exit(1)
+        if ('SEED' not in config):
+            config['SEED'] = 42
+        if ('DELAY' not in config):
+            config['DELAY'] = 0.03
+        if ('ALGORITHM' not in config):
+            config['ALGORITHM'] = "WILSON"
+        if ('DIFFICULTY' not in config):
+            config['DIFFICULTY'] = Difficulty.BONUS
+    except FileNotFoundError:
+        print(f"Error: File '{path}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied to read '{path}'.", file=sys.stderr)
+        sys.exit(1)
 
-                if config_data[key] < 0:
-                    raise ValueError(
-                        f"Error on line {line_num}: "
-                        f"{key} cannot be negative."
-                    )
-
-            else:
-                config_data[key] = val
-
-    return config_data
-
-
-def validate_config(config: dict[str, Any]) -> None:
-    """
-    Validates that the maze parameters are correct and logically consistent.
-
-    Args:
-        config: dictionary containing data extracted from config file.
-
-    Raises:
-        ValueError: If any required key is missing or values are invalid.
-    """
-    required_keys = [
-        "WIDTH",
-        "HEIGHT",
-        "ENTRY",
-        "EXIT",
-        "OUTPUT_FILE",
-        "PERFECT",
-    ]
-
-    for key in required_keys:
-        if key not in config:
-            raise ValueError(
-                f"Required configuration key is missing: {key}"
-            )
-
-    width: int = config["WIDTH"]
-    height: int = config["HEIGHT"]
-    entry_point: tuple[int, int] = config["ENTRY"]
-    exit_point: tuple[int, int] = config["EXIT"]
-
-    if width <= 3 or height <= 3:
-        raise ValueError(
-            "WIDTH and HEIGHT must be greater than 3."
-        )
-
-    if not (0 <= entry_point[0] < width and 0 <= entry_point[1] < height):
-        raise ValueError(
-            f"Entry {entry_point} is outside the maze boundaries."
-        )
-
-    if not (0 <= exit_point[0] < width and 0 <= exit_point[1] < height):
-        raise ValueError(
-            f"Exit {exit_point} is outside the maze boundaries."
-        )
-
-    if entry_point == exit_point:
-        raise ValueError(
-            "Entry and exit cannot be in the same cell."
-        )
+    return config

@@ -1,3 +1,5 @@
+"""Interactive WASD player navigation and game mode logic."""
+
 from pathlib import Path
 import subprocess
 import sys
@@ -7,7 +9,7 @@ from typing import Any
 
 from ui import visualizer
 
-DEFAULT_SOUND = str(
+DEFAULT_SOUND_PATH = str(
     Path(__file__).resolve().parent.parent / "assets" / "victory.wav"
 )
 
@@ -30,13 +32,22 @@ def _get_key() -> str:
     return key.lower()
 
 
-def _play_sound(file_path: str = DEFAULT_SOUND) -> None:
+def _play_sound(file_path: str = DEFAULT_SOUND_PATH) -> None:
     """
     Plays a sound file.
     """
 
+    sound_path = Path(file_path)
+    if not sound_path.is_file():
+        assets_dir = Path(__file__).resolve().parent.parent / "assets"
+        fallback = assets_dir / file_path
+        if fallback.is_file():
+            sound_path = fallback
+        else:
+            return
+
     try:
-        subprocess.run(["aplay", file_path], stderr=subprocess.DEVNULL)
+        subprocess.run(["aplay", str(sound_path)], stderr=subprocess.DEVNULL)
 
     except FileNotFoundError:
         pass
@@ -55,7 +66,6 @@ def play_interactive(maze: Any) -> None:
         print("\n=== Play Mode ===")
         print("Move: [W] Up | [S] Down | [A] Left | [D] Right")
         print("Quit: [Q] Return to main menu")
-        print("-----------------")
 
         if (current_x, current_y) == maze.exit:
             _play_sound()

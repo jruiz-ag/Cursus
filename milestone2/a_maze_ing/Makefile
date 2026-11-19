@@ -38,7 +38,7 @@ debug: $(VENV)
 .PHONY: clean
 clean:
 	@echo "$(ORANGE)Cleaning cache files..."
-	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	@rm -rf __pycache__ */__pycache__ */*/__pycache__
 	@rm -rf .mypy_cache
 	@rm -rf .pytest_cache
 	@rm -rf *.egg-info
@@ -57,10 +57,10 @@ re: fclean all
 
 .PHONY: lint
 lint: $(VENV)
-	@echo "$(ORANGE)Running flake8..."
+	@echo "$(ORANGE)Running flake8...$(RESET)"
 	@$(VENV)/bin/flake8 . --exclude=.venv
-	@echo "$(ORANGE)Running mypy..."
-	@$(VENV)/bin/mypy . --exclude=.venv
+	@echo "$(ORANGE)Running mypy...$(RESET)"
+	@$(VENV)/bin/mypy . --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs --exclude=.venv
 	@echo "$(PURPLE)Code is clean!$(RESET)"
 
 .PHONY: lint-strict
@@ -76,3 +76,9 @@ test: $(VENV)
 	@echo "$(ORANGE)Running unit tests...$(GREEN)"
 	@PYTHONPATH=. $(VENV)/bin/pytest tests/ -v
 	@echo "$(PURPLE)Tests completed.$(RESET)"
+
+.PHONY: build
+build: $(VENV)
+	@echo "$(ORANGE)Building mazegen distribution files...$(GREEN)"
+	$(PYTHON) -m build > /dev/null
+	@echo "$(PURPLE)Package built successfully! Check dist/$(RESET)"

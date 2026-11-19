@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+packet_test.py
+maze_analyzer.py
+test.py

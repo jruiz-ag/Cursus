@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
+"""Main entry point for the A-Maze-ing maze generator and interactive menu."""
 
 import os
 import select
 import sys
 from time import sleep
-from typing import Any
+
 from pydantic import ValidationError
 
-from mazegen import GameMode, MazeGenerator, parse_config
-from ui import game_mode, visualizer
+from ui import play_mode
+from ui import visualizer
+from mazegen.generator import MazeGenerator
+from mazegen import parser as config_module
+from mazegen.parser import Difficulty
+
+from typing import Any, NoReturn
 
 
 def flush_input() -> None:
@@ -23,25 +29,35 @@ def flush_input() -> None:
         pass
 
 
-def error_generator(msg: str) -> None:
+def error_generator(msg: str) -> NoReturn:
     """
-    Show an error and finalise the execution.
+    Clear terminal, prints an error message to stderr, and exits the program.
+
+    Args:
+        msg: The error message to be displayed.
     """
 
-    print("\033c", end="")
-    print(msg, file=sys.stderr)
+    print("\033c", end="", flush=True)
+    print(msg, file=sys.stderr, flush=True)
     sys.exit(1)
 
 
-def toggle_game_mode(settings: dict[str, Any]) -> None:
+def toggle_difficulty(settings: dict[str, Any]) -> None:
     """
-    Cycles through the available GameModes in the settings.
+    Cycles through the available difficulties in the settings.
     """
 
-    modes = list(GameMode)
-    current_mode = settings.get("GAME_MODE", GameMode.BONUS)
+    modes = list(Difficulty)
+    current_mode = settings.get("DIFFICULTY", Difficulty.BONUS)
+
+    if isinstance(current_mode, str):
+        try:
+            current_mode = Difficulty[current_mode.upper()]
+        except KeyError:
+            current_mode = Difficulty.BONUS
+
     next_index = (modes.index(current_mode) + 1) % len(modes)
-    settings["GAME_MODE"] = modes[next_index]
+    settings["DIFFICULTY"] = modes[next_index]
 
 
 def run_pipeline(
@@ -50,8 +66,16 @@ def run_pipeline(
     show_path: bool = True
 ) -> str:
     """
-    Executes the maze pipeline: generation,
-    solving, exporting, and optional animation.
+    Executes the maze lifecycle: generation, solving,
+    exporting, and optional live rendering.
+
+    Args:
+        grid: The MazeGenerator instance to operate on.
+        settings: Dictionary containing execution settings.
+        show_path: Whether to display the solution path during animation.
+
+    Returns:
+        str: The shortest path solution sequence.
     """
 
     live = None
@@ -65,7 +89,7 @@ def run_pipeline(
         solution = grid.solve()
         grid.export()
 
-        print("\033c", end="")
+        print("\033c", end="", flush=True)
         if settings.get("LIVE_MODE") and grid.maze and show_path:
             visualizer.animate_solution(
                 grid.maze,
@@ -73,7 +97,7 @@ def run_pipeline(
                 delay=settings.get("DELAY", 0.0),
             )
     except KeyboardInterrupt:
-        print("\033c", end="")
+        print("\033c", end="", flush=True)
         if grid.maze is not None:
             solution = grid.solve()
             grid.export()
@@ -91,7 +115,13 @@ def run_menu(
     config_path: str
 ) -> None:
     """
-    Handles the interactive terminal menu loop.
+    Runs the main interactive terminal menu loop for user interaction.
+
+    Args:
+        grid: Current MazeGenerator instance.
+        settings: Dictionary of active settings.
+        solution: Initial shortest path solution string.
+        config_path: Path to the external configuration file for reloads.
     """
 
     show_path: bool = False
@@ -99,7 +129,7 @@ def run_menu(
     while True:
         if grid.maze:
             current_path = solution if show_path else ""
-            print("\033c", end="")
+            print("\033c", end="", flush=True)
             visualizer.render_ascii(grid.maze, current_path)
             print("\n=== Show Mode ===")
             if grid.maze.small_grid:
@@ -119,10 +149,14 @@ def run_menu(
             print(f"Live Mode: {settings.get('LIVE_MODE', False)}")
             print(f"Perfect Mode: {settings['PERFECT']}")
             if not settings["PERFECT"]:
-                print(
-                    f"Game Mode: "
-                    f"{settings.get('GAME_MODE', GameMode.BONUS).name}"
+                diff_val = settings.get('DIFFICULTY', Difficulty.BONUS)
+                diff_name = (
+                    diff_val.name if hasattr(diff_val, 'name')
+                    else str(diff_val).upper()
                 )
+                print(f"Difficulty: {diff_name}")
+            print(f"Algorithm: {settings.get('ALGORITHM', 'WILSON')}")
+            print(f"Seed: {grid.maze.seed}")
 
         print("\n=== A-Maze-ing ===")
         print("1. Re-generate a new maze")
@@ -130,16 +164,20 @@ def run_menu(
         print("3. Rotate wall colours")
         print("4. Toggle Live Animation")
         print("5. Toggle Perfect Mode")
-        print("6. Toggle Game Mode (Imperfect mode)")
-        print("7. Charge new settings")
-        print("8. PLAY MAZE!")
-        print("9. Quit")
+        if settings["PERFECT"]:
+            print("\033[9m6. Toggle Difficulty\033[0m")
+        else:
+            print("6. Toggle Difficulty")
+        print("7. Toggle Algorithm")
+        print("8. Reload settings")
+        print("9. PLAY MAZE!")
+        print("10. Quit")
         print("\033[J")
 
         flush_input()
 
         try:
-            choice = input("Choice? (1-9): ").strip()
+            choice = input("Choice? (1-10): ").strip()
         except (KeyboardInterrupt, EOFError):
             print("\nExiting program...")
             break
@@ -175,17 +213,37 @@ def run_menu(
 
         elif choice == "5":
             settings["PERFECT"] = not settings["PERFECT"]
+
+            if grid.maze and grid.maze.seed is not None:
+                settings["SEED"] = grid.maze.seed
+
             grid = MazeGenerator(settings=settings)
             solution = run_pipeline(grid, settings, show_path)
 
         elif choice == "6":
             if settings["PERFECT"]:
+                print("\nWarning: Perfect mode activated.")
+                sleep(0.5)
                 continue
-            toggle_game_mode(settings)
+            if grid.maze and grid.maze.seed is not None:
+                settings["SEED"] = grid.maze.seed
+            toggle_difficulty(settings)
             grid = MazeGenerator(settings=settings)
             solution = run_pipeline(grid, settings, show_path)
 
         elif choice == "7":
+            if settings.get("ALGORITHM", "WILSON") == "WILSON":
+                settings["ALGORITHM"] = "DFS"
+            else:
+                settings["ALGORITHM"] = "WILSON"
+
+            if grid.maze and grid.maze.seed is not None:
+                settings["SEED"] = grid.maze.seed
+
+            grid = MazeGenerator(settings=settings)
+            solution = run_pipeline(grid, settings, show_path)
+
+        elif choice == "8":
             try:
                 new_settings = load_settings(config_path)
                 if new_settings == base_settings:
@@ -194,37 +252,43 @@ def run_menu(
                     continue
 
                 settings = new_settings
-                base_settings = new_settings.copy()
                 print("Re-generating maze with new configuration...")
-                settings.pop("SEED", None)
                 try:
                     grid = MazeGenerator(settings=settings)
+                    base_settings = new_settings.copy()
+                    solution = run_pipeline(grid, settings, show_path)
                 except ValidationError as ex:
-                    error_generator(ex.errors()[0]["msg"])
-                solution = run_pipeline(grid, settings, show_path)
+                    print(f"\nConfiguration error: {ex.errors()[0]['msg']}")
+                    settings = base_settings.copy()
+                    input("\nPress Enter to continue...")
             except Exception as e:
-                print(f"Error loading settings: {e}")
-                sleep(0.5)
-
-        elif choice == "8":
-            if grid.maze:
-                game_mode.play_interactive(grid.maze)
+                error_generator(str(e))
 
         elif choice == "9":
+            if grid.maze:
+                play_mode.play_interactive(grid.maze)
+
+        elif choice == "10":
             print("Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please select an option from 1 to 9.")
+            print("Invalid choice. Please select an option from 1 to 10.")
             sleep(0.5)
 
 
 def load_settings(config_path: str) -> dict[str, Any]:
     """
-    Charge the config parameters in a valid dictionary.
+    Loads and validates configuration parameters from a file.
+
+    Args:
+        config_path: File system path to the configuration file.
+
+    Returns:
+        dict[str, Any]: Validated configuration settings.
     """
 
-    settings = parse_config(config_path)
+    settings = config_module.parse_config(config_path)
     return settings
 
 
@@ -242,24 +306,9 @@ def main() -> None:
 
     config_path: str = sys.argv[1]
 
-    print("\033c", end="")
-    print("Validating configuration...")
+    print("\033c", end="", flush=True)
     try:
         settings = load_settings(config_path)
-
-        print()
-        print("Configuration loaded and validated successfully!")
-        print(f"Dimensions: {settings['WIDTH']}x{settings['HEIGHT']}")
-        print(f"Entry: {settings['ENTRY']} | Exit: {settings['EXIT']}")
-        print(f"Perfect Mode: {settings['PERFECT']}")
-        print(f"Output file: {settings['OUTPUT_FILE']}")
-        if "SEED" in settings:
-            print(f"Seed: {settings['SEED']}")
-
-        flush_input()
-        input("\nPress Enter to continue...")
-        print("\033c", end="")
-
         try:
             grid = MazeGenerator(settings=settings)
         except ValidationError as ex:
@@ -277,7 +326,8 @@ def main() -> None:
         sys.exit(1)
 
     except KeyboardInterrupt:
-        print("\nExiting the program.")
+        print("\nExiting the program.", file=sys.stderr)
+        sys.exit(1)
 
     except Exception as e:
         print(f"Unexpected error: {e}", file=sys.stderr)
