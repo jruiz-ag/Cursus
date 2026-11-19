@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.10
+
 import importlib.util
 import importlib.metadata
 from typing import Any
